@@ -1,6 +1,9 @@
 import warnings
 warnings.filterwarnings("ignore")
+import os
 from stable_baselines import DQN
+from stable_baselines.results_plotter import load_results, ts2xy
+from stable_baselines.deepq.policies import *
 from stable_baselines.common.vec_env import VecEnv
 from stable_baselines.common.schedules import LinearSchedule
 from stable_baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
@@ -14,6 +17,42 @@ from stable_baselines.a2c.utils import total_episode_reward_logger
 
 
 class DqnAtml(DQN):
+
+    def get_actions_vec(self, actions_prims, actions_inputs, actions_mf):
+        with self.sess.as_default():
+            self.embedd_matrix = self.step_model.embedding.get_weights()
+        invalid_action = np.zeros(self.embedd_matrix[0].shape[1]) - 1
+        self.embedd_matrix = np.vstack([self.embedd_matrix[0], invalid_action])
+
+        embedded_steps = self.embedd_matrix[actions_prims.astype(int)]
+        actions_inputs = actions_inputs.reshape(len(actions_prims), -1)
+        actions_mf = actions_mf.reshape(len(actions_prims), -1)
+
+        concat_actions = np.concatenate((embedded_steps, actions_inputs, actions_mf), axis=1)
+        flatten_act = concat_actions.reshape(-1)
+
+        return flatten_act
+
+    def process_state_vec(self, obs, state_info):
+        # transform actions representation with embeddings
+        with self.sess.as_default():
+            self.embedd_matrix = self.step_model.embedding.get_weights()
+        ind1 = state_info['grid_prims_size']
+        ind2 = ind1 + state_info['relations_size']
+        ind3 = ind2 + state_info['ff_state_size']
+        ind4 = ind3 + state_info['action_prims']
+        ind5 = ind4 + state_info['action_inputs']
+        ind6 = ind5 + state_info['action_mf']
+        cells_num = state_info['cells_num']
+
+        actions_prims = obs[ind3: ind4]
+        actions_inputs = obs[ind4: ind5]
+        actions_mf = obs[ind5:]
+        flatten_act = self.get_actions_vec(actions_prims, actions_inputs, actions_mf)
+        final_obs = np.concatenate((obs[:ind3], flatten_act))
+
+        return final_obs
+
     def learn(self, total_timesteps, callback=None, seed=None, log_interval=100, tb_log_name="DQN",
               reset_num_timesteps=True, initial_p=1.0):
         new_tb_log = self._init_num_timesteps(reset_num_timesteps)
@@ -44,6 +83,7 @@ class DqnAtml(DQN):
 
             episode_rewards = [0.0]
             obs = self.env.reset()
+
             reset = True
             self.episode_reward = np.zeros((1,))
 
@@ -78,6 +118,8 @@ class DqnAtml(DQN):
                     env_action = action
                     reset = False
                     new_obs, rew, done, info = self.env.step(env_action)
+                    # self.env.render()
+
                     register = info.get('register')
                     if register:
                         if rew > 0:
@@ -87,6 +129,9 @@ class DqnAtml(DQN):
                             action = self.act(np.array(obs)[None], update_eps=update_eps, **kwargs)[0]
                         break
                     obs = new_obs
+
+                # emb = self.get_prim_embeddings(obs)  # Change
+
 
                 # with self.sess.as_default():
                 #     action = self.act(np.array(obs)[None], update_eps=update_eps, **kwargs)[0]
@@ -196,3 +241,172 @@ class AtmlMonitor(Monitor):
         if info['register']:
             self.total_steps += 1
         return observation, reward, done, info
+
+
+class CustomPolicy(DQNPolicy):
+    """
+    Policy object that implements a DQN policy, using a feed forward neural network.
+
+    :param sess: (TensorFlow session) The current TensorFlow session
+    :param ob_space: (Gym Space) The observation space of the environment
+    :param ac_space: (Gym Space) The action space of the environment
+    :param n_env: (int) The number of environments to run
+    :param n_steps: (int) The number of steps to run for each environment
+    :param n_batch: (int) The number of batch to run (n_envs * n_steps)
+    :param reuse: (bool) If the policy is reusable or not
+    :param layers: ([int]) The size of the Neural network for the policy (if None, default to [64, 64])
+    :param cnn_extractor: (function (TensorFlow Tensor, ``**kwargs``): (TensorFlow Tensor)) the CNN feature extraction
+    :param feature_extraction: (str) The feature extraction type ("cnn" or "mlp")
+    :param obs_phs: (TensorFlow Tensor, TensorFlow Tensor) a tuple containing an override for observation placeholder
+        and the processed observation placeholder respectivly
+    :param layer_norm: (bool) enable layer normalisation
+    :param dueling: (bool) if true double the output MLP to compute a baseline for action scores
+    :param act_fun: (tf.func) the activation function to use in the neural network.
+    :param kwargs: (dict) Extra keyword arguments for the nature CNN feature extraction
+    """
+
+    def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, layers=None,
+                 cnn_extractor=nature_cnn, feature_extraction="mlp", state_info=None, embedd_size=15,
+                 obs_phs=None, layer_norm=False, dueling=True, act_fun=tf.nn.relu, **kwargs):
+        super(CustomPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, dueling=dueling,
+                                           reuse=reuse, scale=(feature_extraction == "mlp"), obs_phs=obs_phs)
+
+        self._kwargs_check(feature_extraction, kwargs)
+
+        # if layers is None:
+        layers = [256, 128, 64, 32, 8]
+
+        with tf.variable_scope("model", reuse=reuse):
+            extracted_features = tf.layers.flatten(self.processed_obs)
+            ind1 = state_info['grid_prims_size']
+            ind2 = ind1+state_info['relations_size']
+            ind3 = ind2 + state_info['ff_state_size']
+            ind4 = ind3 + state_info['processed_actions_size']
+            cells_num = state_info['cells_num']
+
+            grid_prims_vec = extracted_features[:, :ind1]
+            relations_vec = extracted_features[:, ind1: ind2]
+            dense_vec = extracted_features[:, ind2: ind3]
+            actions_vec = extracted_features[:, ind3:]
+
+            with tf.variable_scope("state_value"):
+                filter_sizes = [3, 4, 5]
+                num_filters = 256
+                embedding_dim = embedd_size
+                sequence_length = state_info['cells_num']
+
+                self.embedding = tf.keras.layers.Embedding(state_info['num_prims'], embedding_dim, input_length=cells_num)
+                embd = self.embedding(grid_prims_vec)
+
+                relations_vectors = tf.reshape(relations_vec, [-1, cells_num, state_info['single_relation_size']])
+                state_matrix = tf.concat([embd, relations_vectors], axis=-1)
+
+                # conv = tf.keras.layers.Conv1D(filters=32, kernel_size=3, activation='relu')(state_matrix)
+                #                 # pool = tf.keras.layers.MaxPooling1D(pool_size=1)(conv)
+                #                 # norm = tf_layers.layer_norm(pool, center=True, scale=True)
+                #                 #
+                #                 # conv1 = tf.keras.layers.Conv1D(filters=16, kernel_size=4, activation='relu')(norm)
+                #                 # pool1 = tf.keras.layers.MaxPooling1D(pool_size=1)(conv1)
+                #                 # norm1 = tf_layers.layer_norm(pool1, center=True, scale=True)
+
+                flatten = tf.keras.layers.LSTM(80)(state_matrix)
+
+
+                # reshape = tf.keras.layers.Reshape((cells_num, state_matrix.shape[2], 1))(state_matrix)
+
+                # conv_0 = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[0], reshape.shape[2].value), padding='valid',
+                #                 kernel_initializer='normal', activation='relu')(reshape)
+
+                # conv_1 = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[1], reshape.shape[2].value), padding='valid',
+                #                 kernel_initializer='normal', activation='relu')(reshape)
+                # conv_2 = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[2], reshape.shape[2].value), padding='valid',
+                #                 kernel_initializer='normal', activation='relu')(reshape)
+
+                # maxpool_0 = tf.keras.layers.MaxPool2D(pool_size=(sequence_length - filter_sizes[0] + 1, 1), strides=(1, 1),
+                #                       padding='valid')(conv_0)
+                # norm_pool = tf_layers.layer_norm(maxpool_0, center=True, scale=True)
+                # maxpool_1 = tf.keras.layers.MaxPool2D(pool_size=(sequence_length - filter_sizes[1] + 1, 1), strides=(1, 1),
+                #                       padding='valid')(conv_1)
+                # maxpool_2 = tf.keras.layers.MaxPool2D(pool_size=(sequence_length - filter_sizes[2] + 1, 1), strides=(1, 1),
+                #                       padding='valid')(conv_2)
+
+                # concatenated_tensor = tf.keras.layers.Concatenate(axis=1)([maxpool_0, maxpool_1, maxpool_2])
+                # flatten = tf.keras.layers.Flatten()(norm1)
+                concat_state = tf.keras.layers.Concatenate(axis=1)([flatten, dense_vec, actions_vec])
+                # dropout = tf.keras.layers.Dropout(0.15)(flatten)
+
+                for layer_size in layers:
+                    state_out = tf_layers.fully_connected(concat_state, num_outputs=layer_size, activation_fn=None)
+                    state_out = tf_layers.layer_norm(state_out, center=True, scale=True)
+                    state_out = act_fun(state_out)
+                state_score = tf_layers.fully_connected(state_out, num_outputs=1, activation_fn=None)
+
+            with tf.variable_scope("action_value"):
+
+                # actions_matrix = tf.reshape(actions_vec, [-1, state_info['action_prims'], state_info['step_size']])
+                # actions_reshape = tf.keras.layers.Reshape((actions_matrix.shape[1], actions_matrix.shape[2], 1))(actions_matrix)
+
+                # conv_0_act = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[0], actions_reshape.shape[2].value),
+                #                                 padding='valid',
+                #                                 kernel_initializer='normal', activation='relu')(actions_reshape)
+                # conv_1_act = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[1], actions_reshape.shape[2].value),
+                #                                 padding='valid',
+                #                                 kernel_initializer='normal', activation='relu')(actions_reshape)
+                # conv_2_act = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[2], actions_reshape.shape[2].value),
+                #                                 padding='valid',
+                #                                 kernel_initializer='normal', activation='relu')(actions_reshape)
+
+                # maxpool_0_act = tf.keras.layers.MaxPool2D(pool_size=(actions_reshape.shape[1] - filter_sizes[0] + 1, 1),
+                #                                       strides=(1, 1),
+                #                                       padding='valid')(conv_0_act)
+                # norm_pool_act = tf_layers.layer_norm(maxpool_0_act, center=True, scale=True)
+
+                # maxpool_1_act = tf.keras.layers.MaxPool2D(pool_size=(actions_reshape.shape[1] - filter_sizes[1] + 1, 1),
+                #                                       strides=(1, 1),
+                #                                       padding='valid')(conv_1_act)
+                # maxpool_2_act = tf.keras.layers.MaxPool2D(pool_size=(actions_reshape.shape[1] - filter_sizes[2] + 1, 1),
+                #                                       strides=(1, 1),
+                #                                       padding='valid')(conv_2_act)
+
+                # concatenated_tensor_act = tf.keras.layers.Concatenate(axis=1)([maxpool_0_act, maxpool_1_act, maxpool_2_act])
+                # flatten_act = tf.keras.layers.Flatten()(norm_pool_act)
+                # embedding_act = tf.keras.layers.Embedding(state_info['num_prims'], embedding_dim,
+                #                                            input_length=cells_num)
+                # embd_act = embedding_act(grid_prims_vec)
+                #
+                # state_matrix_act = tf.concat([embd_act, relations_vectors], axis=-1)
+                action_out = tf.keras.layers.Concatenate(axis=1)([actions_vec, dense_vec])
+
+                for layer_size in layers:
+                    action_out = tf_layers.fully_connected(action_out, num_outputs=layer_size, activation_fn=None)
+                    action_out = tf_layers.layer_norm(action_out, center=True, scale=True)
+                    action_out = act_fun(action_out)
+                action_scores = tf_layers.fully_connected(action_out, num_outputs=self.n_actions, activation_fn=None)
+
+            action_scores_mean = tf.reduce_mean(action_scores, axis=1)
+            action_scores_centered = action_scores - tf.expand_dims(action_scores_mean, axis=1)
+            q_out = state_score + action_scores_centered
+
+        self.q_values = q_out
+        self._setup_init()
+
+    def step(self, obs, state=None, mask=None, deterministic=True):
+        q_values, actions_proba = self.sess.run([self.q_values, self.policy_proba], {self.obs_ph: obs})
+        if deterministic:
+            actions = np.argmax(q_values, axis=1)
+        else:
+            # Unefficient sampling
+            # TODO: replace the loop
+            # maybe with Gumbel-max trick ? (http://amid.fish/humble-gumbel)
+            actions = np.zeros((len(obs),), dtype=np.int64)
+            for action_idx in range(len(obs)):
+                actions[action_idx] = np.random.choice(self.n_actions, p=actions_proba[action_idx])
+
+        return actions, q_values, None
+
+    def proba_step(self, obs, state=None, mask=None):
+        return self.sess.run(self.policy_proba, {self.obs_ph: obs})
+
+    def get_embedd_weights(self):
+        return self.sess.run(self.embedding.get_weights())
+
