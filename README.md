@@ -1,5 +1,5 @@
 # gym-deepline
-## installation
+## Installation
 ```bash
 cd gym-deepline
 pip install -e .
