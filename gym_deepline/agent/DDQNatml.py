@@ -109,8 +109,9 @@ class DqnAtml(DQN):
                     kwargs['update_param_noise_threshold'] = update_param_noise_threshold
                     kwargs['update_param_noise_scale'] = True
 
+                ''' Hierarchical Step (Start) '''
                 register = False
-                while not register:  # Change! act causes change in parameters
+                while not register:
                     with self.sess.as_default():
                         action = self.predict(np.array(obs)[None])[0][0]
                     env_action = action
@@ -130,6 +131,7 @@ class DqnAtml(DQN):
 
                 self.replay_buffer.add(obs, action, rew, new_obs, float(done))
                 obs = new_obs
+                ''' Hierarchical Step (End) '''
 
                 if writer is not None:
                     ep_rew = np.array([rew]).reshape((1, -1))
