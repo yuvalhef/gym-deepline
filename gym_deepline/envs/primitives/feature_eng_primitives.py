@@ -241,6 +241,7 @@ class KernelPCA_Prim(primitive):
         self.hyperparams_run = {'default': True}
         self.pca = None  # n_components=5
         self.accept_type = 'c_t_krnl'
+        self.random_state = random_state
 
     def can_accept(self, data):
         if int(0.5 * data['X'].shape[1]) == 0:
@@ -254,7 +255,7 @@ class KernelPCA_Prim(primitive):
 
     def fit(self, data):
         data = handle_data(data)
-        self.pca = KernelPCA(n_components=int(0.5 * data['X'].shape[1]))
+        self.pca = KernelPCA(n_components=int(0.5 * data['X'].shape[1]), random_state=self.random_state)
         self.pca.fit(data['X'])
 
     def produce(self, data):

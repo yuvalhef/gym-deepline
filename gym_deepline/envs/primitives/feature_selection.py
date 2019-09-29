@@ -804,7 +804,8 @@ class RFE_RandomForestPrim(primitive):
         self.type = 'feature selection'
         self.description = "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached."
         self.hyperparams_run = {'default': True}
-        self.selector = RFE(RandomForestClassifier())
+        self.random_state = random_state
+        self.selector = RFE(RandomForestClassifier(random_state=self.random_state))
         self.accept_type = 'c'
 
     def can_accept(self, data):
