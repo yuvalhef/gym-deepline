@@ -1,8 +1,6 @@
 import warnings
 warnings.filterwarnings("ignore")
-import os
 from stable_baselines import DQN
-from stable_baselines.results_plotter import load_results, ts2xy
 from stable_baselines.deepq.policies import *
 from stable_baselines.common.vec_env import VecEnv
 from stable_baselines.common.schedules import LinearSchedule
@@ -130,15 +128,6 @@ class DqnAtml(DQN):
                         break
                     obs = new_obs
 
-                # emb = self.get_prim_embeddings(obs)  # Change
-
-
-                # with self.sess.as_default():
-                #     action = self.act(np.array(obs)[None], update_eps=update_eps, **kwargs)[0]
-                # env_action = action
-                # reset = False
-                # new_obs, rew, done, _ = self.env.step(env_action)
-                # Store transition in the replay buffer.
                 self.replay_buffer.add(obs, action, rew, new_obs, float(done))
                 obs = new_obs
 
@@ -273,8 +262,8 @@ class CustomPolicy(DQNPolicy):
 
         self._kwargs_check(feature_extraction, kwargs)
 
-        # if layers is None:
-        layers = [256, 128, 64, 32, 8]
+        if layers is None:
+            layers = [256, 128, 64, 32, 8]
 
         with tf.variable_scope("model", reuse=reuse):
             extracted_features = tf.layers.flatten(self.processed_obs)
@@ -290,48 +279,14 @@ class CustomPolicy(DQNPolicy):
             actions_vec = extracted_features[:, ind3:]
 
             with tf.variable_scope("state_value"):
-                filter_sizes = [3, 4, 5]
-                num_filters = 256
                 embedding_dim = embedd_size
-                sequence_length = state_info['cells_num']
 
                 self.embedding = tf.keras.layers.Embedding(state_info['num_prims'], embedding_dim, input_length=cells_num)
                 embd = self.embedding(grid_prims_vec)
 
                 relations_vectors = tf.reshape(relations_vec, [-1, cells_num, state_info['single_relation_size']])
                 state_matrix = tf.concat([embd, relations_vectors], axis=-1)
-
-                # conv = tf.keras.layers.Conv1D(filters=32, kernel_size=3, activation='relu')(state_matrix)
-                #                 # pool = tf.keras.layers.MaxPooling1D(pool_size=1)(conv)
-                #                 # norm = tf_layers.layer_norm(pool, center=True, scale=True)
-                #                 #
-                #                 # conv1 = tf.keras.layers.Conv1D(filters=16, kernel_size=4, activation='relu')(norm)
-                #                 # pool1 = tf.keras.layers.MaxPooling1D(pool_size=1)(conv1)
-                #                 # norm1 = tf_layers.layer_norm(pool1, center=True, scale=True)
-
                 flatten = tf.keras.layers.LSTM(80)(state_matrix)
-
-
-                # reshape = tf.keras.layers.Reshape((cells_num, state_matrix.shape[2], 1))(state_matrix)
-
-                # conv_0 = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[0], reshape.shape[2].value), padding='valid',
-                #                 kernel_initializer='normal', activation='relu')(reshape)
-
-                # conv_1 = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[1], reshape.shape[2].value), padding='valid',
-                #                 kernel_initializer='normal', activation='relu')(reshape)
-                # conv_2 = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[2], reshape.shape[2].value), padding='valid',
-                #                 kernel_initializer='normal', activation='relu')(reshape)
-
-                # maxpool_0 = tf.keras.layers.MaxPool2D(pool_size=(sequence_length - filter_sizes[0] + 1, 1), strides=(1, 1),
-                #                       padding='valid')(conv_0)
-                # norm_pool = tf_layers.layer_norm(maxpool_0, center=True, scale=True)
-                # maxpool_1 = tf.keras.layers.MaxPool2D(pool_size=(sequence_length - filter_sizes[1] + 1, 1), strides=(1, 1),
-                #                       padding='valid')(conv_1)
-                # maxpool_2 = tf.keras.layers.MaxPool2D(pool_size=(sequence_length - filter_sizes[2] + 1, 1), strides=(1, 1),
-                #                       padding='valid')(conv_2)
-
-                # concatenated_tensor = tf.keras.layers.Concatenate(axis=1)([maxpool_0, maxpool_1, maxpool_2])
-                # flatten = tf.keras.layers.Flatten()(norm1)
                 concat_state = tf.keras.layers.Concatenate(axis=1)([flatten, dense_vec, actions_vec])
                 # dropout = tf.keras.layers.Dropout(0.15)(flatten)
 
@@ -342,39 +297,6 @@ class CustomPolicy(DQNPolicy):
                 state_score = tf_layers.fully_connected(state_out, num_outputs=1, activation_fn=None)
 
             with tf.variable_scope("action_value"):
-
-                # actions_matrix = tf.reshape(actions_vec, [-1, state_info['action_prims'], state_info['step_size']])
-                # actions_reshape = tf.keras.layers.Reshape((actions_matrix.shape[1], actions_matrix.shape[2], 1))(actions_matrix)
-
-                # conv_0_act = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[0], actions_reshape.shape[2].value),
-                #                                 padding='valid',
-                #                                 kernel_initializer='normal', activation='relu')(actions_reshape)
-                # conv_1_act = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[1], actions_reshape.shape[2].value),
-                #                                 padding='valid',
-                #                                 kernel_initializer='normal', activation='relu')(actions_reshape)
-                # conv_2_act = tf.keras.layers.Conv2D(num_filters, kernel_size=(filter_sizes[2], actions_reshape.shape[2].value),
-                #                                 padding='valid',
-                #                                 kernel_initializer='normal', activation='relu')(actions_reshape)
-
-                # maxpool_0_act = tf.keras.layers.MaxPool2D(pool_size=(actions_reshape.shape[1] - filter_sizes[0] + 1, 1),
-                #                                       strides=(1, 1),
-                #                                       padding='valid')(conv_0_act)
-                # norm_pool_act = tf_layers.layer_norm(maxpool_0_act, center=True, scale=True)
-
-                # maxpool_1_act = tf.keras.layers.MaxPool2D(pool_size=(actions_reshape.shape[1] - filter_sizes[1] + 1, 1),
-                #                                       strides=(1, 1),
-                #                                       padding='valid')(conv_1_act)
-                # maxpool_2_act = tf.keras.layers.MaxPool2D(pool_size=(actions_reshape.shape[1] - filter_sizes[2] + 1, 1),
-                #                                       strides=(1, 1),
-                #                                       padding='valid')(conv_2_act)
-
-                # concatenated_tensor_act = tf.keras.layers.Concatenate(axis=1)([maxpool_0_act, maxpool_1_act, maxpool_2_act])
-                # flatten_act = tf.keras.layers.Flatten()(norm_pool_act)
-                # embedding_act = tf.keras.layers.Embedding(state_info['num_prims'], embedding_dim,
-                #                                            input_length=cells_num)
-                # embd_act = embedding_act(grid_prims_vec)
-                #
-                # state_matrix_act = tf.concat([embd_act, relations_vectors], axis=-1)
                 action_out = tf.keras.layers.Concatenate(axis=1)([actions_vec, dense_vec])
 
                 for layer_size in layers:
