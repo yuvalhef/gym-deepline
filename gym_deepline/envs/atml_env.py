@@ -649,6 +649,8 @@ class Observation:
                     self.meta_regressor_data.append(vec)
                 else:
                     score = self.learning_job.metric.cv_evaluate(self.X_train, self.Y_train, deepcopy(self.pipe_run))
+                    if score == 0:
+                        score = self.learning_job.metric.evaluate(self.Y_test, self.pipe_run.produce_outputs['predictions'])
                 # self.pipe_run.log_to_json(score)
                 if not self.baselines_rewards:
                     reward = score  # Change!
