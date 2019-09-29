@@ -36,7 +36,7 @@ class Accuracy(Metric):
                 y_hat = cls.produce_outputs['predictions']
                 scores.append(self.evaluate(y_test, y_hat))
             except Exception as e:
-                return 0
+                continue
         return np.mean(np.array(scores))
 
 
