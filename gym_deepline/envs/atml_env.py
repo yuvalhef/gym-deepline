@@ -24,6 +24,7 @@ import itertools
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
+from .metrics import Accuracy
 from . primitives.data_preprocessing import Imputer, OneHotEncoderPrim, LabelEncoderPrim, ImputerIndicatorPrim,\
     NumericDataPrim, ImputerEncoderPrim, ImputerMedian,ImputerOneHotEncoderPrim
 from gym_deepline.envs.primitives.feature_preprocessing import KBinsDiscretizerOneHotPrim, NormalizerPrim, PowerTransformerPrim,\
@@ -297,7 +298,7 @@ class Observation:
         self.pipe_run = None
         self.cursor = [0, 0]
         self.learning_job = None
-        self.all_learning_jobs = LearningJob.load_all_learning_jobs(mode=mode)
+        self.all_learning_jobs = LearningJob.load_all_learning_jobs(mode=mode, metric=Accuracy(balanced=True))
         self.curr_learning_jobs = list(self.all_learning_jobs.values())
         self.next_lj = cycle(self.curr_learning_jobs)
         self.open = []  # Dict of all pipeline's steps outputs
@@ -389,10 +390,10 @@ class Observation:
                 self.primitives[family] = [prmtv for prmtv in fami_prims if prmtv().name in primitives_list]
         if lj_indices:
             self.curr_learning_jobs = [list(self.all_learning_jobs.values())[index] for index in lj_indices]
-            self.next_lj = cycle(self.curr_learning_jobs)
+            # self.next_lj = np.random.choice(self.curr_learning_jobs)
 
         self.last_in_rows = np.full((self.level), -1).tolist()
-        self.learning_job = next(self.next_lj)#LjRandom.choice(self.curr_learning_jobs)
+        self.learning_job = LjRandom.choice(self.curr_learning_jobs)
         self.cell_options = []
         self.options_windows = []
         self.relations = []
@@ -949,7 +950,7 @@ class AutomlEnv(gym.Env):
         state = self.get_state()
         self.observation.register_state = False
         return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
-                                                                   'hier_level': hlevel}
+                                                           'hier_level': hlevel}
 
     def step(self, action):
         if action > self.action_space.n:

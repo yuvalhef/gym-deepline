@@ -300,7 +300,7 @@ class DqnAtml(DQN):
         ds_rewards = [[0, 0]]
         with SetVerbosity(self.verbose), TensorboardWriter(self.graph, self.tensorboard_log, tb_log_name, new_tb_log) \
                 as writer:
-            self._setup_learn(seed)
+            self._setup_learn()
 
             # Create the replay buffer
             if self.prioritized_replay:
