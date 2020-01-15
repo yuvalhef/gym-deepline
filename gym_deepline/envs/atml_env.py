@@ -700,13 +700,17 @@ class Observation:
                     redundant.append([step.index, 0])
         return redundant
 
-    def get_base_pipeline(self):
-        base_pipeline = Pipeline_run(learning_job=self.learning_job)
-        first = Step(1, [[0, 0]], ImputerOneHotEncoderPrim())
-        sec = Step(2, [[1, 0]], RandomForestClassifierPrim())
-        base_pipeline.steps.append(first)
-        base_pipeline.steps.append(sec)
-        return base_pipeline
+    def get_base_pipelines(self):
+        baselines = [RandomForestClassifierPrim, ExtraTreesClassifierPrim, XGBClassifierPrim]
+        pipelines = {}
+        for baseline in baselines:
+            base_pipeline = Pipeline_run(learning_job=self.learning_job)
+            first = Step(1, [[0, 0]], ImputerOneHotEncoderPrim())
+            sec = Step(2, [[1, 0]], baseline())
+            base_pipeline.steps.append(first)
+            base_pipeline.steps.append(sec)
+            pipelines[baseline().name] = base_pipeline
+        return pipelines
 
     def compute_baselines(self):
         baselines = [RandomForestClassifierPrim, ExtraTreesClassifierPrim, XGBClassifierPrim, LinearSVCPrim,
