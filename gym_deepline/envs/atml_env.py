@@ -966,10 +966,6 @@ class AutomlEnv(gym.Env):
             else:
                 return self.regular_step(action)
         except Exception as e:  # Check if handled correctly
-            # exc_type, exc_obj, exc_tb = sys.exc_info()
-            # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            # traceback.print_exc()
-            # print(e, fname, exc_tb.tb_lineno)
             if not 'sklearn error in FactICA (array must not contain infs or NaNs)- skipping the primitive' in e.args:
                 print(e)
             if isinstance(self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]], Step):
