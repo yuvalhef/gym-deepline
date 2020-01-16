@@ -402,7 +402,7 @@ class DqnAtml(DQN):
                             new_priorities = np.array([abs(x) for x in td_errors.tolist()]) + self.prioritized_replay_eps
                             self.replay_buffer.update_priorities(batch_idxes, new_priorities)
                         except AssertionError:
-                            print(new_priorities)
+                            print(td_errors)
 
                 if self.num_timesteps > self.learning_starts and \
                         self.num_timesteps % self.target_network_update_freq == 0:
