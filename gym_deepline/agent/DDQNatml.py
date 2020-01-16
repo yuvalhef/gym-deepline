@@ -399,10 +399,9 @@ class DqnAtml(DQN):
 
                     if self.prioritized_replay:
                         try:
-                            new_priorities = np.abs(td_errors) + self.prioritized_replay_eps
+                            new_priorities = np.array([abs(x) for x in td_errors.tolist()]) + self.prioritized_replay_eps
                             self.replay_buffer.update_priorities(batch_idxes, new_priorities)
-                        except Exception(AssertionError) as e:
-                            print(e)
+                        except AssertionError:
                             print(new_priorities)
 
                 if self.num_timesteps > self.learning_starts and \

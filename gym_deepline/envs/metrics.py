@@ -1,5 +1,6 @@
 from sklearn.metrics import accuracy_score, mean_squared_error, balanced_accuracy_score
 from sklearn.model_selection import KFold
+import pandas as pd
 import numpy as np
 
 
@@ -18,10 +19,10 @@ class Accuracy(Metric):
         self.balanced = balanced
 
     def evaluate(self,  Y, Y_hat):
-        import pandas as pd
         if isinstance(Y_hat, pd.Series):
             Y_hat = Y_hat.values
-        Y_hat = Y_hat.astype(Y.dtype)
+
+        # Y_hat = Y_hat.astype(Y.dtype)
         if not self.balanced:
             score = accuracy_score(Y, Y_hat)
         else:

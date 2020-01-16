@@ -46,6 +46,7 @@ class MajorityVotingPrim(primitive):
         self.hyperparams_run = {'default': True}
         self.random_state = random_state
         self.labels = None
+        self.labels_dict = {}
         self.accept_type = 'c_majority'
 
     def can_accept(self, data):
@@ -61,6 +62,7 @@ class MajorityVotingPrim(primitive):
     def fit(self, data):
         output = handle_data(data)
         self.labels = list(map(str, list(pd.unique(output['Y']))))
+        self.labels_dict = dict(zip(self.labels, list(pd.unique(output['Y']))))
 
     def produce(self, data):
         output = handle_data(data)
@@ -68,7 +70,8 @@ class MajorityVotingPrim(primitive):
         for i in range(len(self.labels)):
            cols = [s for s in list(output['X'].columns) if self.labels[i] in s]
            proba_predictions[self.labels[i]] = output['X'][cols].values.mean(1)
-        output['predictions'] = proba_predictions.idxmax(axis=1)
+        predictions = proba_predictions.idxmax(axis=1)
+        output['predictions'] = np.array([self.labels_dict[x] for x in predictions])
         output['proba_predictions'] = proba_predictions
         final_output = {0: output}
         return final_output
