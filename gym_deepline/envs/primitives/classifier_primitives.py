@@ -20,6 +20,17 @@ import numpy as np
 np.random.seed(1)
 
 
+def replace_bad_str(str_list):
+    for i in range(len(str_list)):
+        col = str_list[i]
+        col = col.replace('[', 'abaqa')
+        col = col.replace(']', 'bebab')
+        col = col.replace('<', 'cfckc')
+        col = col.replace('>', 'dmdad')
+        str_list[i] = col
+    return str_list
+
+
 def handle_data(data):
     if len(data) == 1:
         new_data = deepcopy(data[0])
@@ -32,14 +43,7 @@ def handle_data(data):
         new_data['X'] = concatenated_df.infer_objects()
 
     cols = list(new_data['X'].columns)
-    for i in range(len(cols)):
-        col = cols[i]
-        col = col.replace('[', 'abaqa')
-        col = col.replace(']', 'bebab')
-        col = col.replace('<', 'cfckc')
-        col = col.replace('>', 'dmdad')
-        cols[i] = col
-    new_data['X'].columns = cols
+    new_data['X'].columns = replace_bad_str(cols)
     new_data['X'] = new_data['X'].loc[:, ~new_data['X'].columns.duplicated()]
     return new_data
 

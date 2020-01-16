@@ -9,6 +9,18 @@ import pandas as pd
 import numpy as np
 np.random.seed(1)
 
+
+def replace_bad_str(str_list):
+    for i in range(len(str_list)):
+        col = str_list[i]
+        col = col.replace('[', 'abaqa')
+        col = col.replace(']', 'bebab')
+        col = col.replace('<', 'cfckc')
+        col = col.replace('>', 'dmdad')
+        str_list[i] = col
+    return str_list
+
+
 def handle_data(data):
     if len(data) == 0:
         return None
@@ -25,14 +37,7 @@ def handle_data(data):
         new_data = deepcopy(data[0])
         new_data['X'] = concatenated_df.infer_objects()
         cols = list(new_data['X'].columns)
-        for i in range(len(cols)):
-            col = cols[i]
-            col = col.replace('[', 'abaqa')
-            col = col.replace(']', 'bebab')
-            col = col.replace('<', 'cfckc')
-            col = col.replace('>', 'dmdad')
-            cols[i] = col
-        new_data['X'].columns = cols
+        new_data['X'].columns = replace_bad_str(cols)
     return new_data
 
 
@@ -46,6 +51,7 @@ class MajorityVotingPrim(primitive):
         self.hyperparams_run = {'default': True}
         self.random_state = random_state
         self.labels = None
+        self.good_labels = None
         self.labels_dict = {}
         self.accept_type = 'c_majority'
 
@@ -62,13 +68,14 @@ class MajorityVotingPrim(primitive):
     def fit(self, data):
         output = handle_data(data)
         self.labels = list(map(str, list(pd.unique(output['Y']))))
+        self.good_labels = replace_bad_str(deepcopy(self.labels))
         self.labels_dict = dict(zip(self.labels, list(pd.unique(output['Y']))))
 
     def produce(self, data):
         output = handle_data(data)
         proba_predictions = pd.DataFrame(np.zeros((output['X'].shape[0], len(self.labels))), columns=self.labels)
-        for i in range(len(self.labels)):
-           cols = [s for s in list(output['X'].columns) if self.labels[i] in s]
+        for i in range(len(self.good_labels)):
+           cols = [s for s in list(output['X'].columns) if self.good_labels[i] in s]
            proba_predictions[self.labels[i]] = output['X'][cols].values.mean(1)
         predictions = proba_predictions.idxmax(axis=1)
         output['predictions'] = np.array([self.labels_dict[x] for x in predictions])
