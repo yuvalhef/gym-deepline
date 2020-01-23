@@ -357,14 +357,12 @@ class Observation:
             clf = EqualGroupsKMeans(n_clusters=n_clusters, random_state=0)
             clf.fit(steps_matrix)
 
-
             for lbl in np.unique(clf.labels_):
-                inds = np.where(clf.labels_==lbl)
+                inds = np.where(clf.labels_ == lbl)
                 cluster = [l[i] for i in inds[0]]
                 if len(inds[0]) < n:
-                    cluster += (n - len(inds[0])) * [-1]
+                    cluster += (n - len(inds[0])) * ['BLANK']
                 yield cluster
-
 
         else:
             # For item i in a range that is a length of l,
