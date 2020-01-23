@@ -933,7 +933,7 @@ class AutomlEnv(gym.Env):
             if len(temp) == 1 and len(self.observation.options_windows) < 5:
                 l1 = [num for elem in self.observation.options_windows for num in elem]
                 flattened_options = [item for item in l1 if item not in temp[0]]
-                indexes = [i for i, x in enumerate(temp[0]) if x == -1]
+                indexes = [i for i, x in enumerate(temp[0]) if x == 'BLANK']                                    # change "blank" to -1
                 n = 5 - len(self.observation.options_windows)
                 # np.random.seed(0)
                 # npRandom.seed(0)
