@@ -123,7 +123,6 @@ class Pipeline_run:
             dimentionality = -1
         return np.array(num_primitives+num_families+[num_estimators]+[num_preprocess]+[dimentionality])
 
-
     def log_to_json(self, score=0):
         curr_pipeline_dict = {}
         path = os.path.dirname(os.path.realpath(__file__)) + '/pipelines'
