@@ -21494,5 +21494,229 @@
     "dataset": "weatherAUS",
     "pipeline_id": "ImputerMedian0RobustScaler1f_classifFPR2TruncatedSVD3BernoulliNBClassifier4OneHotEncoder0PowerTransformer6RFE_GradientBoosting7_2PCA_ARPACK8GaussianNBClassifier9_4imputerIndicator0MinMaxScaler11f_classifKbest12IncrementalPCA13_6ExtraTreesClassifier14_7MajorityVoting5_10_15",
     "score": 0.95
+  },
+  "ar4Classificationaccuracyar4UnivariateSelectChiKbest0GradientBoostingClassifier1QuantileTransformer0KernelPCA3_1GaussianNBClassifier4XGBClassifier0_40.5721611721611721": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "UnivariateSelectChiKbest0GradientBoostingClassifier1QuantileTransformer0KernelPCA3_1GaussianNBClassifier4XGBClassifier0_4",
+    "score": 0.5721611721611721
+  },
+  "ar4Classificationaccuracyar4RobustScaler0XGBClassifier1RFE_RandomForest0_1XGBClassifier3Normalizer00.5916849816849817": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "RobustScaler0XGBClassifier1RFE_RandomForest0_1XGBClassifier3Normalizer0",
+    "score": 0.5916849816849817
+  },
+  "ar4Classificationaccuracyar4StandardScaler0KNeighborsClassifierPrim1UnivariateSelectChiPercentile0KernelPCA3f_classifFWE0_3PCA_Randomized5_30.5434981684981686": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "StandardScaler0KNeighborsClassifierPrim1UnivariateSelectChiPercentile0KernelPCA3f_classifFWE0_3PCA_Randomized5_3",
+    "score": 0.5434981684981686
+  },
+  "ar4Classificationaccuracyar4Normalizer0RFE_RandomForest1MultinomialNB0_2RandomTreesEmbedding00.645970695970696": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "Normalizer0RFE_RandomForest1MultinomialNB0_2RandomTreesEmbedding0",
+    "score": 0.645970695970696
+  },
+  "ar4Classificationaccuracyar4f_classifPercentile0LogisticRegression1Normalizer0VarianceThreshold3KernelPCA4ExtraTreesClassifier5KNeighborsClassifierPrim0_50.5506410256410257": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "f_classifPercentile0LogisticRegression1Normalizer0VarianceThreshold3KernelPCA4ExtraTreesClassifier5KNeighborsClassifierPrim0_5",
+    "score": 0.5506410256410257
+  },
+  "ar4Classificationaccuracyar4MinMaxScaler0DecisionTreeClassifier1UnivariateSelectChiKbest0LinearSVC3MinMaxScaler0PCA_Randomized5_3LogisticRegression6_30.5504761904761905": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "MinMaxScaler0DecisionTreeClassifier1UnivariateSelectChiKbest0LinearSVC3MinMaxScaler0PCA_Randomized5_3LogisticRegression6_3",
+    "score": 0.5504761904761905
+  },
+  "ar4Classificationaccuracyar4MaxAbsScaler0MultinomialNB1RobustScaler0_1RFE_RandomForest3RandomTreesEmbedding4_1LogisticRegression50.6268315018315018": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "MaxAbsScaler0MultinomialNB1RobustScaler0_1RFE_RandomForest3RandomTreesEmbedding4_1LogisticRegression5",
+    "score": 0.6268315018315018
+  },
+  "ar4Classificationaccuracyar4f_classifPercentile0LogisticRegression1LinearSVC0MinMaxScaler00.6276190476190476": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "f_classifPercentile0LogisticRegression1LinearSVC0MinMaxScaler0",
+    "score": 0.6276190476190476
+  },
+  "ar4Classificationaccuracyar4MaxAbsScaler0f_classifPercentile1LinearSVC0RFE_RandomForest0_20.6276190476190476": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "MaxAbsScaler0f_classifPercentile1LinearSVC0RFE_RandomForest0_2",
+    "score": 0.6276190476190476
+  },
+  "weatherAUSClassificationaccuracyweatherAUSNumericData0XGBClassifier11.0": {
+    "name": "weatherAUS",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "weatherAUS",
+    "pipeline_id": "NumericData0XGBClassifier1",
+    "score": 1.0
+  },
+  "pm10Classificationaccuracypm10StandardScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier30.5088141025641025": {
+    "name": "pm10",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "pm10",
+    "pipeline_id": "StandardScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier3",
+    "score": 0.5088141025641025
+  },
+  "test_ilpdClassificationaccuracytest_ilpdNumericData0RobustScaler1f_classifPercentile2PCA_Randomized3LinearSVC4OneHotEncoder0MaxAbsScaler6VarianceThreshold7_1RandomTreesEmbedding8_3KNeighborsClassifierPrim9_4AdaBoostClassifierMeta5_100.5205527994330262": {
+    "name": "test_ilpd",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_ilpd",
+    "pipeline_id": "NumericData0RobustScaler1f_classifPercentile2PCA_Randomized3LinearSVC4OneHotEncoder0MaxAbsScaler6VarianceThreshold7_1RandomTreesEmbedding8_3KNeighborsClassifierPrim9_4AdaBoostClassifierMeta5_10",
+    "score": 0.5205527994330262
+  },
+  "test_phonemeClassificationaccuracytest_phonemeQuantileTransformer0FastICA1ExtraTreesClassifier2VarianceThreshold0_1LinearSVC4_1MinMaxScaler0UnivariateSelectChiFWE6PCA_Randomized7_2ExtraTreesClassifier8_2AdaBoostClassifierMeta3_5_90.8100128369704749": {
+    "name": "test_phoneme",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_phoneme",
+    "pipeline_id": "QuantileTransformer0FastICA1ExtraTreesClassifier2VarianceThreshold0_1LinearSVC4_1MinMaxScaler0UnivariateSelectChiFWE6PCA_Randomized7_2ExtraTreesClassifier8_2AdaBoostClassifierMeta3_5_9",
+    "score": 0.8100128369704749
+  },
+  "no2Classificationaccuracyno2RobustScaler0f_classifPercentile1PCA_Randomized2LinearSVC3RobustScaler0mutual_info_classifKbest5RandomTreesEmbedding6KNeighborsClassifierPrim7_1MaxAbsScaler0_5RFE_RandomForest9PCA_Randomized10_7GradientBoostingClassifier11_8AdaBoostClassifierMeta4_8_120.6206482593037215": {
+    "name": "no2",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "no2",
+    "pipeline_id": "RobustScaler0f_classifPercentile1PCA_Randomized2LinearSVC3RobustScaler0mutual_info_classifKbest5RandomTreesEmbedding6KNeighborsClassifierPrim7_1MaxAbsScaler0_5RFE_RandomForest9PCA_Randomized10_7GradientBoostingClassifier11_8AdaBoostClassifierMeta4_8_12",
+    "score": 0.6206482593037215
+  },
+  "data_banknote_authenticationClassificationaccuracydata_banknote_authenticationMaxAbsScaler0f_classifPercentile1PCA_Randomized2LinearSVC30.8388694638694638": {
+    "name": "data_banknote_authentication",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "data_banknote_authentication",
+    "pipeline_id": "MaxAbsScaler0f_classifPercentile1PCA_Randomized2LinearSVC3",
+    "score": 0.8388694638694638
+  },
+  "test_phonemeClassificationaccuracytest_phonemeMaxAbsScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier3VarianceThreshold0_1FastICA5_2GradientBoostingClassifier6AdaBoostClassifierMeta4_70.6944801026957639": {
+    "name": "test_phoneme",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_phoneme",
+    "pipeline_id": "MaxAbsScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier3VarianceThreshold0_1FastICA5_2GradientBoostingClassifier6AdaBoostClassifierMeta4_7",
+    "score": 0.6944801026957639
+  },
+  "image segmentationClassificationaccuracyimage segmentationMinMaxScaler0UnivariateSelectChiFWE1GaussianNBClassifier20.9177744819948108": {
+    "name": "image segmentation",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "image segmentation",
+    "pipeline_id": "MinMaxScaler0UnivariateSelectChiFWE1GaussianNBClassifier2",
+    "score": 0.9177744819948108
+  },
+  "wiltClassificationaccuracywiltMinMaxScaler0VarianceThreshold1FastICA2KNeighborsClassifierPrim30.8911781232440532": {
+    "name": "wilt",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "wilt",
+    "pipeline_id": "MinMaxScaler0VarianceThreshold1FastICA2KNeighborsClassifierPrim3",
+    "score": 0.8911781232440532
+  },
+  "movement_librasClassificationaccuracymovement_librasRobustScaler0f_classifPercentile1FastICA2LogisticRegression3f_classifPercentile0_2PCA_Randomized5_3ExtraTreesClassifier6QuantileTransformer0f_classifPercentile8_1FastICA9LinearSVC10AdaBoostClassifierMeta4_7_110.5624286435318233": {
+    "name": "movement_libras",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "movement_libras",
+    "pipeline_id": "RobustScaler0f_classifPercentile1FastICA2LogisticRegression3f_classifPercentile0_2PCA_Randomized5_3ExtraTreesClassifier6QuantileTransformer0f_classifPercentile8_1FastICA9LinearSVC10AdaBoostClassifierMeta4_7_11",
+    "score": 0.5624286435318233
+  },
+  "habermanClassificationaccuracyhabermanVarianceThreshold0FastICA1LogisticRegression20.5": {
+    "name": "haberman",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "haberman",
+    "pipeline_id": "VarianceThreshold0FastICA1LogisticRegression2",
+    "score": 0.5
+  },
+  "plasma_retinolClassificationaccuracyplasma_retinolNumericData0MinMaxScaler1f_classifPercentile2BernoulliNBClassifier30.5": {
+    "name": "plasma_retinol",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "plasma_retinol",
+    "pipeline_id": "NumericData0MinMaxScaler1f_classifPercentile2BernoulliNBClassifier3",
+    "score": 0.5
+  },
+  "weatherAUSClassificationaccuracyweatherAUSOneHotEncoder0RobustScaler1mutual_info_classifKbest2KernelPCA3BernoulliNBClassifier4NumericData0XGBClassifier6NumericData0XGBClassifier8_6RandomForestMeta5_7_91.0": {
+    "name": "weatherAUS",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "weatherAUS",
+    "pipeline_id": "OneHotEncoder0RobustScaler1mutual_info_classifKbest2KernelPCA3BernoulliNBClassifier4NumericData0XGBClassifier6NumericData0XGBClassifier8_6RandomForestMeta5_7_9",
+    "score": 1.0
+  },
+  "pm10Classificationaccuracypm10RobustScaler0mutual_info_classifKbest1KernelPCA2BernoulliNBClassifier30.5961538461538461": {
+    "name": "pm10",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "pm10",
+    "pipeline_id": "RobustScaler0mutual_info_classifKbest1KernelPCA2BernoulliNBClassifier3",
+    "score": 0.5961538461538461
+  },
+  "test_ilpdClassificationaccuracytest_ilpdNumericData0UnivariateSelectChiFWE1KernelPCA2BernoulliNBClassifier3NumericData0_1UnivariateSelectChiPercentile5PCA_Randomized6_2LogisticRegression7_3OneHotEncoder0MinMaxScaler9_1UnivariateSelectChiKbest10_6FastICA11_1RF_classifier12_4RandomForestMeta4_8_130.6475903614457832": {
+    "name": "test_ilpd",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_ilpd",
+    "pipeline_id": "NumericData0UnivariateSelectChiFWE1KernelPCA2BernoulliNBClassifier3NumericData0_1UnivariateSelectChiPercentile5PCA_Randomized6_2LogisticRegression7_3OneHotEncoder0MinMaxScaler9_1UnivariateSelectChiKbest10_6FastICA11_1RF_classifier12_4RandomForestMeta4_8_13",
+    "score": 0.6475903614457832
+  },
+  "ar4Classificationaccuracyar4QuantileTransformer0PCA_Randomized1DecisionTreeClassifier2Normalizer0f_classifFWE4_1KernelPCA5_1RF_classifier6_1MaxAbsScaler0_4f_classifFWE8PCA_Randomized9ExtraTreesClassifier10_7AdaBoostClassifierMeta3_7_110.6947802197802198": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "QuantileTransformer0PCA_Randomized1DecisionTreeClassifier2Normalizer0f_classifFWE4_1KernelPCA5_1RF_classifier6_1MaxAbsScaler0_4f_classifFWE8PCA_Randomized9ExtraTreesClassifier10_7AdaBoostClassifierMeta3_7_11",
+    "score": 0.6947802197802198
+  },
+  "ar4Classificationaccuracyar4MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2LinearSVC3QuantileTransformer0UnivariateSelectChiKbest5KernelPCA6KNeighborsClassifierPrim7_2Normalizer0f_classifPercentile9PCA_Randomized10_5KNeighborsClassifierPrim11AdaBoostClassifierMeta4_8_120.6483333333333334": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2LinearSVC3QuantileTransformer0UnivariateSelectChiKbest5KernelPCA6KNeighborsClassifierPrim7_2Normalizer0f_classifPercentile9PCA_Randomized10_5KNeighborsClassifierPrim11AdaBoostClassifierMeta4_8_12",
+    "score": 0.6483333333333334
+  },
+  "ar4Classificationaccuracyar4MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2RF_classifier3Normalizer0UnivariateSelectChiKbest5PCA_Randomized6LogisticRegression7_3RobustScaler0_1VarianceThreshold9_6KernelPCA10XGBClassifier11_5AdaBoostClassifierMeta4_8_120.5547802197802197": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2RF_classifier3Normalizer0UnivariateSelectChiKbest5PCA_Randomized6LogisticRegression7_3RobustScaler0_1VarianceThreshold9_6KernelPCA10XGBClassifier11_5AdaBoostClassifierMeta4_8_12",
+    "score": 0.5547802197802197
+  },
+  "ar4Classificationaccuracyar4QuantileTransformer0UnivariateSelectChiFWE1StandardScaler0_1f_classifFWE3DecisionTreeClassifier4_1Normalizer0UnivariateSelectChiFWE6_2FastICA7_1DecisionTreeClassifier8_4MajorityVoting5_90.6781135531135531": {
+    "name": "ar4",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "ar4",
+    "pipeline_id": "QuantileTransformer0UnivariateSelectChiFWE1StandardScaler0_1f_classifFWE3DecisionTreeClassifier4_1Normalizer0UnivariateSelectChiFWE6_2FastICA7_1DecisionTreeClassifier8_4MajorityVoting5_9",
+    "score": 0.6781135531135531
   }
 }

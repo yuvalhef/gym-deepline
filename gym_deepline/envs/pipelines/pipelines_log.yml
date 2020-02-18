@@ -76740,5 +76740,3025 @@
         }
       }
     }
+  },
+  "UnivariateSelectChiKbest0GradientBoostingClassifier1QuantileTransformer0KernelPCA3_1GaussianNBClassifier4XGBClassifier0_4": {
+    "id": "UnivariateSelectChiKbest0GradientBoostingClassifier1QuantileTransformer0KernelPCA3_1GaussianNBClassifier4XGBClassifier0_4",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "GradientBoostingClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Gradient Boosting for classification. GB builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the binomial or multinomial deviance loss function. Binary classification is a special case where only a single regression tree is induced.",
+          "type": "Classifier"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3,
+          1
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "GaussianNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Gaussian Naive Bayes (GaussianNB). Can perform online updates to model parameters via partial_fit method.",
+          "type": "Classifier"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          0,
+          4
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "RobustScaler0XGBClassifier1RFE_RandomForest0_1XGBClassifier3Normalizer0": {
+    "id": "RobustScaler0XGBClassifier1RFE_RandomForest0_1XGBClassifier3Normalizer0",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "RFE_RandomForest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "Normalizer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Normalize samples individually to unit norm. Each sample (i.e. each row of the data matrix) with at least one non zero component is rescaled independently of other samples so that its norm (l1 or l2) equals one. This transformer is able to work both with dense numpy arrays and scipy.sparse matrix (use CSR format if you want to avoid the burden of a copy / conversion). Scaling inputs to unit norms is a common operation for text classification or clustering for instance. For instance the dot product of two l2-normalized TF-IDF vectors is the cosine similarity of the vectors and is the base similarity metric for the Vector Space Model commonly used by the Information Retrieval community.",
+          "type": "feature preprocess"
+        }
+      }
+    }
+  },
+  "StandardScaler0KNeighborsClassifierPrim1UnivariateSelectChiPercentile0KernelPCA3f_classifFWE0_3PCA_Randomized5_3": {
+    "id": "StandardScaler0KNeighborsClassifierPrim1UnivariateSelectChiPercentile0KernelPCA3f_classifFWE0_3PCA_Randomized5_3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "StandardScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Standardize features by removing the mean and scaling to unit variance",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "KNeighborsClassifierPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Classifier implementing the k-nearest neighbors vote.",
+          "type": "Classifier"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0,
+          3
+        ],
+        "primitive": {
+          "name": "f_classifFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5,
+          3
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      }
+    }
+  },
+  "Normalizer0RFE_RandomForest1MultinomialNB0_2RandomTreesEmbedding0": {
+    "id": "Normalizer0RFE_RandomForest1MultinomialNB0_2RandomTreesEmbedding0",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "Normalizer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Normalize samples individually to unit norm. Each sample (i.e. each row of the data matrix) with at least one non zero component is rescaled independently of other samples so that its norm (l1 or l2) equals one. This transformer is able to work both with dense numpy arrays and scipy.sparse matrix (use CSR format if you want to avoid the burden of a copy / conversion). Scaling inputs to unit norms is a common operation for text classification or clustering for instance. For instance the dot product of two l2-normalized TF-IDF vectors is the cosine similarity of the vectors and is the base similarity metric for the Vector Space Model commonly used by the Information Retrieval community.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "RFE_RandomForest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0,
+          2
+        ],
+        "primitive": {
+          "name": "MultinomialNB",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multinomial models. The multinomial Naive Bayes classifier is suitable for classification with discrete features (e.g., word counts for text classification). The multinomial distribution normally requires integer feature counts. However, in practice, fractional counts such as tf-idf may also work.",
+          "type": "Classifier"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "RandomTreesEmbedding",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      }
+    }
+  },
+  "f_classifPercentile0LogisticRegression1Normalizer0VarianceThreshold3KernelPCA4ExtraTreesClassifier5KNeighborsClassifierPrim0_5": {
+    "id": "f_classifPercentile0LogisticRegression1Normalizer0VarianceThreshold3KernelPCA4ExtraTreesClassifier5KNeighborsClassifierPrim0_5",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "Normalizer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Normalize samples individually to unit norm. Each sample (i.e. each row of the data matrix) with at least one non zero component is rescaled independently of other samples so that its norm (l1 or l2) equals one. This transformer is able to work both with dense numpy arrays and scipy.sparse matrix (use CSR format if you want to avoid the burden of a copy / conversion). Scaling inputs to unit norms is a common operation for text classification or clustering for instance. For instance the dot product of two l2-normalized TF-IDF vectors is the cosine similarity of the vectors and is the base similarity metric for the Vector Space Model commonly used by the Information Retrieval community.",
+          "type": "feature preprocess"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5
+        ],
+        "primitive": {
+          "name": "ExtraTreesClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An extra-trees classifier. This class implements a meta estimator that fits a number of randomized decision trees (a.k.a. extra-trees) on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.",
+          "type": "Classifier"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          0,
+          5
+        ],
+        "primitive": {
+          "name": "KNeighborsClassifierPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Classifier implementing the k-nearest neighbors vote.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "MinMaxScaler0DecisionTreeClassifier1UnivariateSelectChiKbest0LinearSVC3MinMaxScaler0PCA_Randomized5_3LogisticRegression6_3": {
+    "id": "MinMaxScaler0DecisionTreeClassifier1UnivariateSelectChiKbest0LinearSVC3MinMaxScaler0PCA_Randomized5_3LogisticRegression6_3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "DecisionTreeClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A decision tree classifier.",
+          "type": "Classifier"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5,
+          3
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6,
+          3
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "MaxAbsScaler0MultinomialNB1RobustScaler0_1RFE_RandomForest3RandomTreesEmbedding4_1LogisticRegression5": {
+    "id": "MaxAbsScaler0MultinomialNB1RobustScaler0_1RFE_RandomForest3RandomTreesEmbedding4_1LogisticRegression5",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "MultinomialNB",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multinomial models. The multinomial Naive Bayes classifier is suitable for classification with discrete features (e.g., word counts for text classification). The multinomial distribution normally requires integer feature counts. However, in practice, fractional counts such as tf-idf may also work.",
+          "type": "Classifier"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "RFE_RandomForest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.",
+          "type": "feature selection"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4,
+          1
+        ],
+        "primitive": {
+          "name": "RandomTreesEmbedding",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "f_classifPercentile0LogisticRegression1LinearSVC0MinMaxScaler0": {
+    "id": "f_classifPercentile0LogisticRegression1LinearSVC0MinMaxScaler0",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      }
+    }
+  },
+  "MaxAbsScaler0f_classifPercentile1LinearSVC0RFE_RandomForest0_2": {
+    "id": "MaxAbsScaler0f_classifPercentile1LinearSVC0RFE_RandomForest0_2",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          0,
+          2
+        ],
+        "primitive": {
+          "name": "RFE_RandomForest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.",
+          "type": "feature selection"
+        }
+      }
+    }
+  },
+  "StandardScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier3": {
+    "id": "StandardScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "StandardScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Standardize features by removing the mean and scaling to unit variance",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "NumericData0RobustScaler1f_classifPercentile2PCA_Randomized3LinearSVC4OneHotEncoder0MaxAbsScaler6VarianceThreshold7_1RandomTreesEmbedding8_3KNeighborsClassifierPrim9_4AdaBoostClassifierMeta5_10": {
+    "id": "NumericData0RobustScaler1f_classifPercentile2PCA_Randomized3LinearSVC4OneHotEncoder0MaxAbsScaler6VarianceThreshold7_1RandomTreesEmbedding8_3KNeighborsClassifierPrim9_4AdaBoostClassifierMeta5_10",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "NumericData",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Extracts only numeric data columns from input.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "OneHotEncoder",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Encode categorical integer features as a one-hot numeric array. The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka \u2018one-of-K\u2019 or \u2018dummy\u2019) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array. By default, the encoder derives the categories based on the unique values in each feature. Alternatively, you can also specify the categories manually. The OneHotEncoder previously assumed that the input features take on values in the range [0, max(values)). This behaviour is deprecated. This encoding is needed for feeding categorical data to many scikit-learn estimators, notably linear models and SVMs with the standard kernels.",
+          "type": "data preprocess"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          1
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          8,
+          3
+        ],
+        "primitive": {
+          "name": "RandomTreesEmbedding",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9,
+          4
+        ],
+        "primitive": {
+          "name": "KNeighborsClassifierPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Classifier implementing the k-nearest neighbors vote.",
+          "type": "Classifier"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          5,
+          10
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "QuantileTransformer0FastICA1ExtraTreesClassifier2VarianceThreshold0_1LinearSVC4_1MinMaxScaler0UnivariateSelectChiFWE6PCA_Randomized7_2ExtraTreesClassifier8_2AdaBoostClassifierMeta3_5_9": {
+    "id": "QuantileTransformer0FastICA1ExtraTreesClassifier2VarianceThreshold0_1LinearSVC4_1MinMaxScaler0UnivariateSelectChiFWE6PCA_Randomized7_2ExtraTreesClassifier8_2AdaBoostClassifierMeta3_5_9",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "ExtraTreesClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An extra-trees classifier. This class implements a meta estimator that fits a number of randomized decision trees (a.k.a. extra-trees) on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.",
+          "type": "Classifier"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4,
+          1
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with Chi-square.",
+          "type": "feature selection"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          8,
+          2
+        ],
+        "primitive": {
+          "name": "ExtraTreesClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An extra-trees classifier. This class implements a meta estimator that fits a number of randomized decision trees (a.k.a. extra-trees) on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.",
+          "type": "Classifier"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          3,
+          5,
+          9
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "RobustScaler0f_classifPercentile1PCA_Randomized2LinearSVC3RobustScaler0mutual_info_classifKbest5RandomTreesEmbedding6KNeighborsClassifierPrim7_1MaxAbsScaler0_5RFE_RandomForest9PCA_Randomized10_7GradientBoostingClassifier11_8AdaBoostClassifierMeta4_8_12": {
+    "id": "RobustScaler0f_classifPercentile1PCA_Randomized2LinearSVC3RobustScaler0mutual_info_classifKbest5RandomTreesEmbedding6KNeighborsClassifierPrim7_1MaxAbsScaler0_5RFE_RandomForest9PCA_Randomized10_7GradientBoostingClassifier11_8AdaBoostClassifierMeta4_8_12",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5
+        ],
+        "primitive": {
+          "name": "mutual_info_classifKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Mutual information for a discrete target.",
+          "type": "feature selection"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "RandomTreesEmbedding",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          1
+        ],
+        "primitive": {
+          "name": "KNeighborsClassifierPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Classifier implementing the k-nearest neighbors vote.",
+          "type": "Classifier"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          0,
+          5
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9
+        ],
+        "primitive": {
+          "name": "RFE_RandomForest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.",
+          "type": "feature selection"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          10,
+          7
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          11,
+          8
+        ],
+        "primitive": {
+          "name": "GradientBoostingClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Gradient Boosting for classification. GB builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the binomial or multinomial deviance loss function. Binary classification is a special case where only a single regression tree is induced.",
+          "type": "Classifier"
+        }
+      },
+      "13": {
+        "index": 13,
+        "inputs": [
+          4,
+          8,
+          12
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "MaxAbsScaler0f_classifPercentile1PCA_Randomized2LinearSVC3": {
+    "id": "MaxAbsScaler0f_classifPercentile1PCA_Randomized2LinearSVC3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "MaxAbsScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier3VarianceThreshold0_1FastICA5_2GradientBoostingClassifier6AdaBoostClassifierMeta4_7": {
+    "id": "MaxAbsScaler0f_classifPercentile1PCA_Randomized2BernoulliNBClassifier3VarianceThreshold0_1FastICA5_2GradientBoostingClassifier6AdaBoostClassifierMeta4_7",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5,
+          2
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "GradientBoostingClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Gradient Boosting for classification. GB builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the binomial or multinomial deviance loss function. Binary classification is a special case where only a single regression tree is induced.",
+          "type": "Classifier"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          4,
+          7
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "MinMaxScaler0UnivariateSelectChiFWE1GaussianNBClassifier2": {
+    "id": "MinMaxScaler0UnivariateSelectChiFWE1GaussianNBClassifier2",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with Chi-square.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "GaussianNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Gaussian Naive Bayes (GaussianNB). Can perform online updates to model parameters via partial_fit method.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "MinMaxScaler0VarianceThreshold1FastICA2KNeighborsClassifierPrim3": {
+    "id": "MinMaxScaler0VarianceThreshold1FastICA2KNeighborsClassifierPrim3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "KNeighborsClassifierPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Classifier implementing the k-nearest neighbors vote.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "RobustScaler0f_classifPercentile1FastICA2LogisticRegression3f_classifPercentile0_2PCA_Randomized5_3ExtraTreesClassifier6QuantileTransformer0f_classifPercentile8_1FastICA9LinearSVC10AdaBoostClassifierMeta4_7_11": {
+    "id": "RobustScaler0f_classifPercentile1FastICA2LogisticRegression3f_classifPercentile0_2PCA_Randomized5_3ExtraTreesClassifier6QuantileTransformer0f_classifPercentile8_1FastICA9LinearSVC10AdaBoostClassifierMeta4_7_11",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0,
+          2
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5,
+          3
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "ExtraTreesClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An extra-trees classifier. This class implements a meta estimator that fits a number of randomized decision trees (a.k.a. extra-trees) on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.",
+          "type": "Classifier"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          8,
+          1
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          10
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          4,
+          7,
+          11
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "VarianceThreshold0FastICA1LogisticRegression2": {
+    "id": "VarianceThreshold0FastICA1LogisticRegression2",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "NumericData0MinMaxScaler1f_classifPercentile2BernoulliNBClassifier3": {
+    "id": "NumericData0MinMaxScaler1f_classifPercentile2BernoulliNBClassifier3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "NumericData",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Extracts only numeric data columns from input.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "OneHotEncoder0RobustScaler1mutual_info_classifKbest2KernelPCA3BernoulliNBClassifier4NumericData0XGBClassifier6NumericData0XGBClassifier8_6RandomForestMeta5_7_9": {
+    "id": "OneHotEncoder0RobustScaler1mutual_info_classifKbest2KernelPCA3BernoulliNBClassifier4NumericData0XGBClassifier6NumericData0XGBClassifier8_6RandomForestMeta5_7_9",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "OneHotEncoder",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Encode categorical integer features as a one-hot numeric array. The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka \u2018one-of-K\u2019 or \u2018dummy\u2019) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array. By default, the encoder derives the categories based on the unique values in each feature. Alternatively, you can also specify the categories manually. The OneHotEncoder previously assumed that the input features take on values in the range [0, max(values)). This behaviour is deprecated. This encoding is needed for feeding categorical data to many scikit-learn estimators, notably linear models and SVMs with the standard kernels.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "mutual_info_classifKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Mutual information for a discrete target.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "NumericData",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Extracts only numeric data columns from input.",
+          "type": "data preprocess"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "NumericData",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Extracts only numeric data columns from input.",
+          "type": "data preprocess"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          8,
+          6
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          5,
+          7,
+          9
+        ],
+        "primitive": {
+          "name": "RandomForestMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A random forest classifier. A meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is always the same as the original input sample size but the samples are drawn with replacement if bootstrap=True (default).",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "RobustScaler0mutual_info_classifKbest1KernelPCA2BernoulliNBClassifier3": {
+    "id": "RobustScaler0mutual_info_classifKbest1KernelPCA2BernoulliNBClassifier3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "mutual_info_classifKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Mutual information for a discrete target.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "NumericData0UnivariateSelectChiFWE1KernelPCA2BernoulliNBClassifier3NumericData0_1UnivariateSelectChiPercentile5PCA_Randomized6_2LogisticRegression7_3OneHotEncoder0MinMaxScaler9_1UnivariateSelectChiKbest10_6FastICA11_1RF_classifier12_4RandomForestMeta4_8_13": {
+    "id": "NumericData0UnivariateSelectChiFWE1KernelPCA2BernoulliNBClassifier3NumericData0_1UnivariateSelectChiPercentile5PCA_Randomized6_2LogisticRegression7_3OneHotEncoder0MinMaxScaler9_1UnivariateSelectChiKbest10_6FastICA11_1RF_classifier12_4RandomForestMeta4_8_13",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "NumericData",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Extracts only numeric data columns from input.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with Chi-square.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "NumericData",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Extracts only numeric data columns from input.",
+          "type": "data preprocess"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6,
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          3
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "OneHotEncoder",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Encode categorical integer features as a one-hot numeric array. The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka \u2018one-of-K\u2019 or \u2018dummy\u2019) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array. By default, the encoder derives the categories based on the unique values in each feature. Alternatively, you can also specify the categories manually. The OneHotEncoder previously assumed that the input features take on values in the range [0, max(values)). This behaviour is deprecated. This encoding is needed for feeding categorical data to many scikit-learn estimators, notably linear models and SVMs with the standard kernels.",
+          "type": "data preprocess"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9,
+          1
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          10,
+          6
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          11,
+          1
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "13": {
+        "index": 13,
+        "inputs": [
+          12,
+          4
+        ],
+        "primitive": {
+          "name": "RF_classifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A random forest classifier. A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is always the same as the original input sample size but the samples are drawn with replacement if bootstrap=True (default).",
+          "type": "Classifier"
+        }
+      },
+      "14": {
+        "index": 14,
+        "inputs": [
+          4,
+          8,
+          13
+        ],
+        "primitive": {
+          "name": "RandomForestMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A random forest classifier. A meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is always the same as the original input sample size but the samples are drawn with replacement if bootstrap=True (default).",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "QuantileTransformer0PCA_Randomized1DecisionTreeClassifier2Normalizer0f_classifFWE4_1KernelPCA5_1RF_classifier6_1MaxAbsScaler0_4f_classifFWE8PCA_Randomized9ExtraTreesClassifier10_7AdaBoostClassifierMeta3_7_11": {
+    "id": "QuantileTransformer0PCA_Randomized1DecisionTreeClassifier2Normalizer0f_classifFWE4_1KernelPCA5_1RF_classifier6_1MaxAbsScaler0_4f_classifFWE8PCA_Randomized9ExtraTreesClassifier10_7AdaBoostClassifierMeta3_7_11",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "DecisionTreeClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A decision tree classifier.",
+          "type": "Classifier"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "Normalizer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Normalize samples individually to unit norm. Each sample (i.e. each row of the data matrix) with at least one non zero component is rescaled independently of other samples so that its norm (l1 or l2) equals one. This transformer is able to work both with dense numpy arrays and scipy.sparse matrix (use CSR format if you want to avoid the burden of a copy / conversion). Scaling inputs to unit norms is a common operation for text classification or clustering for instance. For instance the dot product of two l2-normalized TF-IDF vectors is the cosine similarity of the vectors and is the base similarity metric for the Vector Space Model commonly used by the Information Retrieval community.",
+          "type": "feature preprocess"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4,
+          1
+        ],
+        "primitive": {
+          "name": "f_classifFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5,
+          1
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6,
+          1
+        ],
+        "primitive": {
+          "name": "RF_classifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A random forest classifier. A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is always the same as the original input sample size but the samples are drawn with replacement if bootstrap=True (default).",
+          "type": "Classifier"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          0,
+          4
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          8
+        ],
+        "primitive": {
+          "name": "f_classifFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          10,
+          7
+        ],
+        "primitive": {
+          "name": "ExtraTreesClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An extra-trees classifier. This class implements a meta estimator that fits a number of randomized decision trees (a.k.a. extra-trees) on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.",
+          "type": "Classifier"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          3,
+          7,
+          11
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2LinearSVC3QuantileTransformer0UnivariateSelectChiKbest5KernelPCA6KNeighborsClassifierPrim7_2Normalizer0f_classifPercentile9PCA_Randomized10_5KNeighborsClassifierPrim11AdaBoostClassifierMeta4_8_12": {
+    "id": "MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2LinearSVC3QuantileTransformer0UnivariateSelectChiKbest5KernelPCA6KNeighborsClassifierPrim7_2Normalizer0f_classifPercentile9PCA_Randomized10_5KNeighborsClassifierPrim11AdaBoostClassifierMeta4_8_12",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "mutual_info_classifKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Mutual information for a discrete target.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          2
+        ],
+        "primitive": {
+          "name": "KNeighborsClassifierPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Classifier implementing the k-nearest neighbors vote.",
+          "type": "Classifier"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "Normalizer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Normalize samples individually to unit norm. Each sample (i.e. each row of the data matrix) with at least one non zero component is rescaled independently of other samples so that its norm (l1 or l2) equals one. This transformer is able to work both with dense numpy arrays and scipy.sparse matrix (use CSR format if you want to avoid the burden of a copy / conversion). Scaling inputs to unit norms is a common operation for text classification or clustering for instance. For instance the dot product of two l2-normalized TF-IDF vectors is the cosine similarity of the vectors and is the base similarity metric for the Vector Space Model commonly used by the Information Retrieval community.",
+          "type": "feature preprocess"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          10,
+          5
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          11
+        ],
+        "primitive": {
+          "name": "KNeighborsClassifierPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Classifier implementing the k-nearest neighbors vote.",
+          "type": "Classifier"
+        }
+      },
+      "13": {
+        "index": 13,
+        "inputs": [
+          4,
+          8,
+          12
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2RF_classifier3Normalizer0UnivariateSelectChiKbest5PCA_Randomized6LogisticRegression7_3RobustScaler0_1VarianceThreshold9_6KernelPCA10XGBClassifier11_5AdaBoostClassifierMeta4_8_12": {
+    "id": "MaxAbsScaler0mutual_info_classifKbest1PCA_Randomized2RF_classifier3Normalizer0UnivariateSelectChiKbest5PCA_Randomized6LogisticRegression7_3RobustScaler0_1VarianceThreshold9_6KernelPCA10XGBClassifier11_5AdaBoostClassifierMeta4_8_12",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "mutual_info_classifKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Mutual information for a discrete target.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "RF_classifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A random forest classifier. A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is always the same as the original input sample size but the samples are drawn with replacement if bootstrap=True (default).",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "Normalizer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Normalize samples individually to unit norm. Each sample (i.e. each row of the data matrix) with at least one non zero component is rescaled independently of other samples so that its norm (l1 or l2) equals one. This transformer is able to work both with dense numpy arrays and scipy.sparse matrix (use CSR format if you want to avoid the burden of a copy / conversion). Scaling inputs to unit norms is a common operation for text classification or clustering for instance. For instance the dot product of two l2-normalized TF-IDF vectors is the cosine similarity of the vectors and is the base similarity metric for the Vector Space Model commonly used by the Information Retrieval community.",
+          "type": "feature preprocess"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          3
+        ],
+        "primitive": {
+          "name": "LogisticRegression",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Logistic Regression (aka logit, MaxEnt) classifier. In the multiclass case, the training algorithm uses the one-vs-rest (OvR) scheme if the \u2018multi_class\u2019 option is set to \u2018ovr\u2019, and uses the cross- entropy loss if the \u2018multi_class\u2019 option is set to \u2018multinomial\u2019. (Currently the \u2018multinomial\u2019 option is supported only by the \u2018lbfgs\u2019, \u2018sag\u2019 and \u2018newton-cg\u2019 solvers.) This class implements regularized logistic regression using the \u2018liblinear\u2019 library, \u2018newton-cg\u2019, \u2018sag\u2019 and \u2018lbfgs\u2019 solvers. It can handle both dense and sparse input. Use C-ordered arrays or CSR matrices containing 64-bit floats for optimal performance; any other input format will be converted (and copied). The \u2018newton-cg\u2019, \u2018sag\u2019, and \u2018lbfgs\u2019 solvers support only L2 regularization with primal formulation. The \u2018liblinear\u2019 solver supports both L1 and L2 regularization, with a dual formulation only for the L2 penalty.",
+          "type": "Classifier"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9,
+          6
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          10
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          11,
+          5
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      },
+      "13": {
+        "index": 13,
+        "inputs": [
+          4,
+          8,
+          12
+        ],
+        "primitive": {
+          "name": "AdaBoostClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An AdaBoost classifier. An AdaBoost classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases. This class implements the algorithm known as AdaBoost-SAMME.",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "QuantileTransformer0UnivariateSelectChiFWE1StandardScaler0_1f_classifFWE3DecisionTreeClassifier4_1Normalizer0UnivariateSelectChiFWE6_2FastICA7_1DecisionTreeClassifier8_4MajorityVoting5_9": {
+    "id": "QuantileTransformer0UnivariateSelectChiFWE1StandardScaler0_1f_classifFWE3DecisionTreeClassifier4_1Normalizer0UnivariateSelectChiFWE6_2FastICA7_1DecisionTreeClassifier8_4MajorityVoting5_9",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with Chi-square.",
+          "type": "feature selection"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "StandardScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Standardize features by removing the mean and scaling to unit variance",
+          "type": "feature preprocess"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "f_classifFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4,
+          1
+        ],
+        "primitive": {
+          "name": "DecisionTreeClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A decision tree classifier.",
+          "type": "Classifier"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "Normalizer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Normalize samples individually to unit norm. Each sample (i.e. each row of the data matrix) with at least one non zero component is rescaled independently of other samples so that its norm (l1 or l2) equals one. This transformer is able to work both with dense numpy arrays and scipy.sparse matrix (use CSR format if you want to avoid the burden of a copy / conversion). Scaling inputs to unit norms is a common operation for text classification or clustering for instance. For instance the dot product of two l2-normalized TF-IDF vectors is the cosine similarity of the vectors and is the base similarity metric for the Vector Space Model commonly used by the Information Retrieval community.",
+          "type": "feature preprocess"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6,
+          2
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with Chi-square.",
+          "type": "feature selection"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          1
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          8,
+          4
+        ],
+        "primitive": {
+          "name": "DecisionTreeClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A decision tree classifier.",
+          "type": "Classifier"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          5,
+          9
+        ],
+        "primitive": {
+          "name": "MajorityVoting",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Ensemble method taking multiple classifier probability predictions and outputs a prediction by a majority voting.",
+          "type": "ensemble"
+        }
+      }
+    }
   }
 }
