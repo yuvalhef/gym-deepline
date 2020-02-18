@@ -2,7 +2,7 @@ from . metrics import Accuracy, MSE
 from . import Datasets as ds
 import numpy as np
 
-metrics = [Accuracy().name, MSE().name]
+metrics = [Accuracy().name, Accuracy(balanced=False).name, MSE().name]
 # datasets = ds.load_all_datasets()
 # # ds_list = [d.name for d in datasets.values()]
 tasks = ['Classification', 'Regression']
@@ -26,20 +26,14 @@ class Learning_Job:
         return self.lj_vector
 
 
-def load_all_learning_jobs(mode='train', task='classification'):
+def load_all_learning_jobs(mode='train', task='Classification', metric=Accuracy()):
 
     leaning_jobs = {}
     datasets = ds.load_all_datasets(mode=mode, task=task)
 
     for dataset in datasets.values():
         name = dataset.name
-        if task == 'classification':
-            lj_task = 'Classification'
-            measure = Accuracy()
-        else:
-            pass  # change
-
-        lj = Learning_Job(lj_task, measure, datasets[name], name)
+        lj = Learning_Job(task, metric, datasets[name], name)
         leaning_jobs[name] = lj
 
     return leaning_jobs
