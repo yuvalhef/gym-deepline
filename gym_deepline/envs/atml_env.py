@@ -8,13 +8,8 @@ atmlYuval-v0 Environment:
        the step and above it.
     5. cell_options: a list of possible steps which are combinations of inputs from open list a5nd primitives.
     6. options_windows: a chunk of cell_options currently on desplay for the agent to pick from
-    5. Actions are:
-            (a) 0-6: insert step i from options_windows
-            (b) 7: define cell as BLANK
-            (c) 8: Do nothing and wait for the next window
-            (d) 9: Finished - calcualate resulting pipeline - REMOVED THIS ACTION!
-    6. Pipeline is calculated when agent reaches the final cell.
-    7. Multiple step outputs are allowed
+    7. Pipeline is calculated when agent reaches the final cell.
+    8. Multiple step outputs are allowed
 """
 import json
 import os
