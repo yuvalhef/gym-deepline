@@ -21550,5 +21550,13 @@
     "dataset": "test_eucalyptus",
     "pipeline_id": "NumericData0XGBClassifier1",
     "score": 0.6824324324324325
+  },
+  "test_eucalyptusClassificationaccuracytest_eucalyptusOneHotEncoder0MinMaxScaler1UnivariateSelectChiPercentile2FastICA3XGBClassifier40.4594594594594595": {
+    "name": "test_eucalyptus",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_eucalyptus",
+    "pipeline_id": "OneHotEncoder0MinMaxScaler1UnivariateSelectChiPercentile2FastICA3XGBClassifier4",
+    "score": 0.4594594594594595
   }
 }

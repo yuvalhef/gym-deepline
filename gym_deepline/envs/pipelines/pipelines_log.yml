@@ -77474,5 +77474,80 @@
         }
       }
     }
+  },
+  "OneHotEncoder0MinMaxScaler1UnivariateSelectChiPercentile2FastICA3XGBClassifier4": {
+    "id": "OneHotEncoder0MinMaxScaler1UnivariateSelectChiPercentile2FastICA3XGBClassifier4",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "OneHotEncoder",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Encode categorical integer features as a one-hot numeric array. The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka \u2018one-of-K\u2019 or \u2018dummy\u2019) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array. By default, the encoder derives the categories based on the unique values in each feature. Alternatively, you can also specify the categories manually. The OneHotEncoder previously assumed that the input features take on values in the range [0, max(values)). This behaviour is deprecated. This encoding is needed for feeding categorical data to many scikit-learn estimators, notably linear models and SVMs with the standard kernels.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      }
+    }
   }
 }
