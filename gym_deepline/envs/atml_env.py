@@ -293,7 +293,7 @@ class Observation:
         self.pipe_run = None
         self.cursor = [0, 0]
         self.learning_job = None
-        self.all_learning_jobs = LearningJob.load_all_learning_jobs(mode=mode, metric=Accuracy(balanced=True))
+        self.all_learning_jobs = LearningJob.load_all_learning_jobs(mode=mode, metric=Accuracy())
         self.curr_learning_jobs = list(self.all_learning_jobs.values())
         self.next_lj = cycle(self.curr_learning_jobs)
         self.open = []  # Dict of all pipeline's steps outputs
