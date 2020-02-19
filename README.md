@@ -13,6 +13,7 @@ After cloning the repository, do the following:
 cd gym-deepline
 pip install -e .
 ```
+The code is implemented in `Python 3.6`.
 
 ## Instructions
 DeepLine's environment is implemented as an [OpenAI-Gym](https://gym.openai.com/) environmnet, and can be called by:
