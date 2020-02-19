@@ -13,9 +13,6 @@ deepline-v0 Environment:
 """
 import json
 import os
-import sys
-import traceback
-import itertools
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
@@ -69,15 +66,11 @@ import random
 import itertools
 from sklearn.model_selection import train_test_split
 from . import ML_Render, rgb_render
-
 from .metafeatures import metafeatures
 from sklearn.preprocessing import LabelEncoder
 from .equal_groups import EqualGroupsKMeans
-
-
 import numpy as np
 import pandas as pd
-
 from itertools import cycle
 from random import Random
 LjRandom = Random(356)
@@ -85,12 +78,7 @@ shRandom = Random(111)
 from numpy.random import RandomState
 npRandom = RandomState(234)
 import math
-
 from copy import deepcopy
-# from random import shuffle
-# np.random.seed(1)
-# random.seed(0)
-
 import logging
 logger = logging.getLogger(__name__)
 
@@ -106,9 +94,6 @@ from .metafeatures.post_processing_functions.basic import Mean
 from .metafeatures.post_processing_functions.basic import StandardDeviation
 from .metafeatures.post_processing_functions.basic import NonAggregated
 from .metafeatures.post_processing_functions.basic import Skew as Skew_post
-from .metafeatures.core.engine import metafeature_generator
-from .metafeatures.core.object_analyzer import analyze_pd_dataframe
-
 
 # Instantiate metafunctions and post-processing functions
 entropy = Entropy()
@@ -130,7 +115,6 @@ primtive_modules = {
     'feature selection': feature_selection,
     'feature engineering': feature_eng_primitives,
     'Prediction': classifier_primitives,
-    # 'Regression': regressor_primitives,
     'ensemble': ensemble
 }
 
@@ -160,7 +144,6 @@ primitives = {
                        RidgeClassifierCVPrim, SGDClassifierPrim, SVCPrim, XGBClassifierPrim,
                        BalancedRandomForestClassifierPrim, EasyEnsembleClassifierPrim, RUSBoostClassifierPrim,
                        LGBMClassifierPrim, ARDRegressionPrim, AdaBoostRegressorPrim, BaggingRegressorPrim],
-    # 'Regression': [ARDRegressionPrim, AdaBoostRegressorPrim, BaggingRegressorPrim],
     'ensemble': [MajorityVotingPrim, RandomForestMetaPrim, RandomForestRegressorMetaPrim, AdaBoostClassifierMetaPrim,
                  ExtraTreesClassifierMetaPrim, GradientBoostingClassifierMetaPrim, XGBClassifierMetaPrim]
 }
@@ -179,22 +162,13 @@ all_primitives = []
 for val in primitives.values():
     all_primitives += val
 
-
-# exclude_primitives = [InteractionFeaturesPrim, PolynomialFeaturesPrim]
-# all_primitives = [x for x in all_primitives if x not in exclude_primitives]
-num_primitives = len(all_primitives) + 2  # + len(exclude_primitives)
-  # change!
+num_primitives = len(all_primitives) + 2
 
 EXCLUDE_META_FEATURES_CLASSIFICATION = {
     'Landmark1NN',
     'LandmarkDecisionNodeLearner',
-    # 'LandmarkDecisionTree',
     'LandmarkRandomNodeLearner',
     'LandmarkLDA',
-    # 'LandmarkNaiveBayes',
-    # 'PCAFractionOfComponentsFor95PercentVariance',
-    # 'PCAKurtosisFirstPC',
-    # 'PCASkewnessFirstPC',
     'PCA'
 }
 all_metafeatures = ['ClassEntropy', 'SymbolsSum', 'SymbolsSTD', 'SymbolsMean', 'SymbolsMax', 'SymbolsMin', 'ClassProbabilitySTD', 'ClassProbabilityMean', 'ClassProbabilityMax', 'ClassProbabilityMin', 'InverseDatasetRatio', 'DatasetRatio', 'RatioNominalToNumerical', 'RatioNumericalToNominal', 'NumberOfCategoricalFeatures', 'NumberOfNumericFeatures', 'NumberOfMissingValues', 'NumberOfFeaturesWithMissingValues', 'NumberOfInstancesWithMissingValues', 'NumberOfFeatures', 'NumberOfClasses', 'NumberOfInstances', 'LogInverseDatasetRatio', 'LogDatasetRatio', 'PercentageOfMissingValues', 'PercentageOfFeaturesWithMissingValues', 'PercentageOfInstancesWithMissingValues', 'LogNumberOfFeatures', 'LogNumberOfInstances', 'PCASkewnessFirstPC', 'PCAKurtosisFirstPC', 'PCAFractionOfComponentsFor95PercentVariance', 'LandmarkRandomNodeLearner', 'LandmarkDecisionTree', 'LandmarkNaiveBayes', 'SkewnessSTD', 'SkewnessMean', 'SkewnessMax', 'SkewnessMin', 'KurtosisSTD', 'KurtosisMean', 'KurtosisMax', 'KurtosisMin']
@@ -206,9 +180,6 @@ EXCLUDE_META_FEATURES_REGRESSION = {
     'LandmarkLDA',
     'LandmarkNaiveBayes',
     'LandmarkRandomNodeLearner',
-    # 'PCAFractionOfComponentsFor95PercentVariance',
-    # 'PCAKurtosisFirstPC',
-    # 'PCASkewnessFirstPC',
     'NumberOfClasses',
     'ClassOccurences',
     'ClassProbabilityMin',
@@ -413,14 +384,13 @@ class Observation:
         self.X_test = self.X_test.reset_index(drop=True)
         self.Y_train = self.Y_train
         self.pipe_run.fit(self.X_train, self.Y_train)
-        # self.open.append([0, 0]) #, self.pipe_run.fit_outputs[0][0]
         self.get_cell_options()
         self.options_windows = list(self.chunks(self.cell_options, self.window_size))
         self.window_index = 0
         self.next_level = []
         self.hier_level = 1
         self.relations = []
-        self.last_reward = 0  # Check this when using
+        self.last_reward = 0
         self.last_output_vec = generate_metafeatures(self.pipe_run.fit_outputs[0][0], use_correlation=True)
         self.num_estimators = 0
 
@@ -480,9 +450,7 @@ class Observation:
         family_primitives = self.primitives[self.grid_families[self.cursor[0]][self.cursor[1]]]
         family_module = primtive_modules[self.grid_families[self.cursor[0]][self.cursor[1]]]
         all_possible_inputs = list(itertools.product(last_in_row, self.open))  # All combinations of outputs of open and outputs of last step in row
-        # open_list = list(map(list, self.open))
-        # if len(open_list) > 0:
-        #     open_list = [open_list]
+
         all_possible_inputs = list(map(list, all_possible_inputs)) + [list(map(list, last_in_row))]  # + open_list
         if self.cursor[1] == len(self.grid[0]) - 1 and self.cursor[0] == len(self.grid) - 1:
             all_possible_inputs = [self.open]
@@ -511,7 +479,7 @@ class Observation:
                     else:
                         accepts = primitive().can_accept(data)
                         acceptance_dict[primitive().accept_type] = accepts
-                    if accepts and primitive().is_needed(data):             # remove is_needed??????
+                    if accepts and primitive().is_needed(data):
                         step = Step(len(self.pipe_run.steps) + 1, inputs, primitive(random_state=self.random_state), data_vec)
                         ind = self.all_primitives.index(primitive)
                         step.to_vector(self.num_primitives, ind, self.level)
@@ -766,7 +734,7 @@ class AutomlEnv(gym.Env):
         self.observation = Observation(level=3, mode=self.mode)
         self.observation.reset_observation()
         arr = self.observation.get_state()[0]
-        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=arr.shape, dtype=np.float32)  # Change!
+        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=arr.shape, dtype=np.float32)
         self.action_space = spaces.Discrete(self.observation.window_size)
         self.first_render = True
         self.rendition = None
@@ -854,7 +822,6 @@ class AutomlEnv(gym.Env):
                                                                    'hier_level': self.observation.hier_level}
         else:
             self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]] = 'BLANK'
-            # done = self.observation.move_cursor()
             done = False
             state = self.get_state()
             self.observation.last_reward = -1
@@ -930,7 +897,7 @@ class AutomlEnv(gym.Env):
             if len(temp) == 1 and len(self.observation.options_windows) < 5:
                 l1 = [num for elem in self.observation.options_windows for num in elem]
                 flattened_options = [item for item in l1 if item not in temp[0]]
-                indexes = [i for i, x in enumerate(temp[0]) if x == -1]                                    # change "blank" to -1
+                indexes = [i for i, x in enumerate(temp[0]) if x == -1]
                 n = 5 - len(self.observation.options_windows)
                 # np.random.seed(0)
                 # npRandom.seed(0)
