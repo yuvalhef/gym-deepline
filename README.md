@@ -8,14 +8,14 @@ DeepLine also introduces a novel method for handling large discrete action space
 Extensive description of the framework is available in the Thesis_Yuval.pdf file.
 
 ## Installation
-
+After cloning the repository, do the following:
 ```bash
 cd gym-deepline
 pip install -e .
 ```
 
 ## Instructions
-DeepLine's environment is implemented as an OpenAI-Gym's environmnet, and can be called by:
+DeepLine's environment is implemented as an [OpenAI-Gym](https://gym.openai.com/) environmnet, and can be called by:
 ```python
 import gym
 import gym-deepline
@@ -23,6 +23,6 @@ import gym-deepline
 env = gym.make('deepline-v0')
 ```
 
-The environment itself is implemented in `envs/atml_env.py`.
+The environment itself is implemented in `envs/atml_env.py` and the three versions of the agent are under `agents/`.
 
 For a more detailed example, see `example.py`.
