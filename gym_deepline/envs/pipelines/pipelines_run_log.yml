@@ -21542,5 +21542,13 @@
     "dataset": "test_eucalyptus",
     "pipeline_id": "imputer0QuantileTransformer1RFE_RandomForest2ExtraTreesClassifier3",
     "score": 0.6486486486486487
+  },
+  "test_eucalyptusClassificationaccuracytest_eucalyptusNumericData0XGBClassifier10.6824324324324325": {
+    "name": "test_eucalyptus",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_eucalyptus",
+    "pipeline_id": "NumericData0XGBClassifier1",
+    "score": 0.6824324324324325
   }
 }
