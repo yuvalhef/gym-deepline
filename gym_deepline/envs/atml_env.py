@@ -1,12 +1,12 @@
 """
-atmlYuval-v0 Environment:
+deepline-v0 Environment:
     1. cursor moves from left to right
     2. inputs of each step (max of 2) must include the previous step of the same row
     3. Possible inputs for each step are (a) only previous step of the same row or (b) combination of previous step with
        one of the open list's steps
     4. open list can include only outputs of steps from higher rows and lower ranked families (families to the left of
        the step and above it.
-    5. cell_options: a list of possible steps which are combinations of inputs from open list a5nd primitives.
+    5. cell_options: a list of possible steps which are combinations of inputs from open list and primitives.
     6. options_windows: a chunk of cell_options currently on desplay for the agent to pick from
     7. Pipeline is calculated when agent reaches the final cell.
     8. Multiple step outputs are allowed
