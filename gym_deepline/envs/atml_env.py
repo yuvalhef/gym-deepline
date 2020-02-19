@@ -8,15 +8,8 @@ atmlYuval-v0 Environment:
        the step and above it.
     5. cell_options: a list of possible steps which are combinations of inputs from open list a5nd primitives.
     6. options_windows: a chunk of cell_options currently on desplay for the agent to pick from
-    5. Actions are:
-            (a) 0-6: insert step i from options_windows
-            (b) 7: define cell as BLANK
-            (c) 8: Do nothing and wait for the next window
-            (d) 9: Finished - calcualate resulting pipeline - REMOVED THIS ACTION!
-    6. Pipeline is calculated when agent reaches the final cell.
-    7. Multiple step outputs are allowed
-
-
+    7. Pipeline is calculated when agent reaches the final cell.
+    8. Multiple step outputs are allowed
 """
 import json
 import os
@@ -26,6 +19,7 @@ import itertools
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
+from .metrics import Accuracy
 from . primitives.data_preprocessing import Imputer, OneHotEncoderPrim, LabelEncoderPrim, ImputerIndicatorPrim,\
     NumericDataPrim, ImputerEncoderPrim, ImputerMedian,ImputerOneHotEncoderPrim
 from gym_deepline.envs.primitives.feature_preprocessing import KBinsDiscretizerOneHotPrim, NormalizerPrim, PowerTransformerPrim,\
@@ -299,7 +293,7 @@ class Observation:
         self.pipe_run = None
         self.cursor = [0, 0]
         self.learning_job = None
-        self.all_learning_jobs = LearningJob.load_all_learning_jobs(mode=mode)
+        self.all_learning_jobs = LearningJob.load_all_learning_jobs(mode=mode, metric=Accuracy(balanced=True))
         self.curr_learning_jobs = list(self.all_learning_jobs.values())
         self.next_lj = cycle(self.curr_learning_jobs)
         self.open = []  # Dict of all pipeline's steps outputs
@@ -312,6 +306,7 @@ class Observation:
         self.X_train = self.X_test = self.Y_train = self.Y_test = None
         self.last_reward = None
         self.next_level = []
+        self.hier_level = 1
         self.register_state = False
         self.input_to_cell_dict = {0: np.zeros(2)-1}
         self.skip_cells = [[i, len(self.grid[0])-1] for i in range(self.level - 1)]
@@ -328,6 +323,7 @@ class Observation:
         self.random_state = 42
         self.baselines_rewards = False
         self.model = None
+        self.log_pipelines = False
         self.reset_observation()
 
     def chunks(self, l, n):
@@ -357,14 +353,12 @@ class Observation:
             clf = EqualGroupsKMeans(n_clusters=n_clusters, random_state=0)
             clf.fit(steps_matrix)
 
-
             for lbl in np.unique(clf.labels_):
-                inds = np.where(clf.labels_==lbl)
+                inds = np.where(clf.labels_ == lbl)
                 cluster = [l[i] for i in inds[0]]
                 if len(inds[0]) < n:
                     cluster += (n - len(inds[0])) * [-1]
                 yield cluster
-
 
         else:
             # For item i in a range that is a length of l,
@@ -390,10 +384,10 @@ class Observation:
                 self.primitives[family] = [prmtv for prmtv in fami_prims if prmtv().name in primitives_list]
         if lj_indices:
             self.curr_learning_jobs = [list(self.all_learning_jobs.values())[index] for index in lj_indices]
-            self.next_lj = cycle(self.curr_learning_jobs)
+            # self.next_lj = np.random.choice(self.curr_learning_jobs)
 
         self.last_in_rows = np.full((self.level), -1).tolist()
-        self.learning_job = next(self.next_lj)#LjRandom.choice(self.curr_learning_jobs)
+        self.learning_job = LjRandom.choice(self.curr_learning_jobs)
         self.cell_options = []
         self.options_windows = []
         self.relations = []
@@ -424,6 +418,7 @@ class Observation:
         self.options_windows = list(self.chunks(self.cell_options, self.window_size))
         self.window_index = 0
         self.next_level = []
+        self.hier_level = 1
         self.relations = []
         self.last_reward = 0  # Check this when using
         self.last_output_vec = generate_metafeatures(self.pipe_run.fit_outputs[0][0], use_correlation=True)
@@ -649,9 +644,10 @@ class Observation:
                     self.meta_regressor_data.append(vec)
                 else:
                     score = self.learning_job.metric.cv_evaluate(self.X_train, self.Y_train, deepcopy(self.pipe_run))
-                # self.pipe_run.log_to_json(score)
+                if self.log_pipelines:
+                    self.pipe_run.log_to_json(score)
                 if not self.baselines_rewards:
-                    reward = score  # Change!
+                    reward = score
                 else:
                     reward = (self.learning_job.base_scores <= score).mean()
                 if score >= self.best_score:
@@ -684,6 +680,7 @@ class Observation:
         self.options_windows = list(self.chunks(self.cell_options, self.window_size))
         self.window_index = 0
         self.next_level = []
+        self.hier_level = 1
         return False
 
     def get_redundant(self):
@@ -853,7 +850,8 @@ class AutomlEnv(gym.Env):
                     if len(self.steps_dict) > 0 and not step_key in self.steps_dict:
                         raise Exception('step not in dict')
                     self.steps_dict[step_key] = step
-            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                                   'hier_level': self.observation.hier_level}
         else:
             self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]] = 'BLANK'
             # done = self.observation.move_cursor()
@@ -873,27 +871,30 @@ class AutomlEnv(gym.Env):
                     if len(self.steps_dict) > 0 and not step_key in self.steps_dict:
                         raise Exception('step not in dict')
                     self.steps_dict[step_key] = step
-            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                                   'hier_level': self.observation.hier_level}
 
     def hierarchical_step(self, action):
         done = False
         if len(self.observation.options_windows) == 0 or len(self.observation.options_windows[0]) == 0:
             state = self.get_state()
             self.observation.last_reward = -1
-            self.observation.register_state = True
+            self.observation.register_state = False
             done = True
-            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                                   'hier_level': self.observation.hier_level}
 
         step = self.observation.options_windows[self.observation.window_index][action]
 
         if step == -1:  # Invalid action
             self.observation.last_reward = -1
             done = False
-            self.observation.register_state = True  # consider changing if not in last hierarchi
+            self.observation.register_state = False
             # shRandom.seed(0)
             shRandom.shuffle(self.observation.options_windows[self.observation.window_index])
             state = self.get_state()
-            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                                   'hier_level': self.observation.hier_level}
 
         # Else, regular case:
         if len(self.observation.options_windows) == 1:
@@ -902,29 +903,34 @@ class AutomlEnv(gym.Env):
                 self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]] = 'BLANK'
             elif step == 'FINISH':
                 self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]] = 'FINISH'
+                hlevel = self.observation.hier_level
                 done = self.observation.move_cursor(True)
                 state = self.get_state()
                 self.observation.last_reward = self.observation.get_reward(done)
                 self.observation.register_state = True
-                return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+                return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                                   'hier_level': hlevel}
             else:
                 self.observation.add_step(step)
+            hlevel = self.observation.hier_level
             done = self.observation.move_cursor()
             state = self.get_state()
             self.observation.last_reward = self.observation.get_reward(done)
             self.observation.register_state = True
-            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                                   'hier_level': hlevel}
 
         self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]] = step
         self.observation.next_level.append(step)
         self.observation.window_index += 1
+        hlevel = self.observation.hier_level
         # state = self.get_state()
         if self.observation.window_index == len(self.observation.options_windows):
             temp = list(self.observation.chunks(self.observation.next_level, self.observation.window_size))
             if len(temp) == 1 and len(self.observation.options_windows) < 5:
                 l1 = [num for elem in self.observation.options_windows for num in elem]
                 flattened_options = [item for item in l1 if item not in temp[0]]
-                indexes = [i for i, x in enumerate(temp[0]) if x == -1]
+                indexes = [i for i, x in enumerate(temp[0]) if x == -1]                                    # change "blank" to -1
                 n = 5 - len(self.observation.options_windows)
                 # np.random.seed(0)
                 # npRandom.seed(0)
@@ -938,10 +944,12 @@ class AutomlEnv(gym.Env):
                         print('PROBLEM')
             self.observation.options_windows = temp
             self.observation.next_level = []
+            self.observation.hier_level += 1
             self.observation.window_index = 0
         state = self.get_state()
         self.observation.register_state = False
-        return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+        return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                           'hier_level': hlevel}
 
     def step(self, action):
         if action > self.action_space.n:
@@ -957,10 +965,6 @@ class AutomlEnv(gym.Env):
             else:
                 return self.regular_step(action)
         except Exception as e:  # Check if handled correctly
-            # exc_type, exc_obj, exc_tb = sys.exc_info()
-            # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            # traceback.print_exc()
-            # print(e, fname, exc_tb.tb_lineno)
             if not 'sklearn error in FactICA (array must not contain infs or NaNs)- skipping the primitive' in e.args:
                 print(e)
             if isinstance(self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]], Step):
@@ -972,11 +976,13 @@ class AutomlEnv(gym.Env):
                         self.observation.last_in_rows[row] = stp
             self.observation.grid[self.observation.cursor[0]][self.observation.cursor[1]] = 'BLANK'
             print(self.observation.cursor)
+            hlevel = self.observation.hier_level
             done = self.observation.move_cursor()
             state = self.get_state()
             self.observation.last_reward = -1
             self.observation.register_state = True
-            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state}
+            return state, self.observation.last_reward, done, {'episode': None, 'register': self.observation.register_state,
+                                                               'hier_level': hlevel}
 
     def get_actions_dict(self):
         all_inputs = [[[-1, -1]]]
