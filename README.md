@@ -24,6 +24,4 @@ env = gym.make('deepline-v0')
 ```
 
 The environment itself is implemented in 
-```python
-envs/atml_env.py
-```
+[I'm a relative reference to a repository file](../blob/master/LICENSE)
