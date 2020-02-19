@@ -76740,5 +76740,409 @@
         }
       }
     }
+  },
+  "imputer0MinMaxScaler1UnivariateSelectChiKbest2FastICA3XGBClassifier4ImputerMedian0MaxAbsScaler6_2f_classifPercentile7KernelPCA8_1LinearSVC9NumericData0_1XGBClassifier11_9RandomForestMeta5_10_12": {
+    "id": "imputer0MinMaxScaler1UnivariateSelectChiKbest2FastICA3XGBClassifier4ImputerMedian0MaxAbsScaler6_2f_classifPercentile7KernelPCA8_1LinearSVC9NumericData0_1XGBClassifier11_9RandomForestMeta5_10_12",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "imputer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values by mean.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "ImputerMedian",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values by median.",
+          "type": "data preprocess"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6,
+          2
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7
+        ],
+        "primitive": {
+          "name": "f_classifPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          8,
+          1
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "NumericData",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Extracts only numeric data columns from input.",
+          "type": "data preprocess"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          11,
+          9
+        ],
+        "primitive": {
+          "name": "XGBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.",
+          "type": "Classifier"
+        }
+      },
+      "13": {
+        "index": 13,
+        "inputs": [
+          5,
+          10,
+          12
+        ],
+        "primitive": {
+          "name": "RandomForestMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A random forest classifier. A meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is always the same as the original input sample size but the samples are drawn with replacement if bootstrap=True (default).",
+          "type": "ensemble"
+        }
+      }
+    }
+  },
+  "imputer0RobustScaler1VarianceThreshold2PCA_Randomized3DecisionTreeClassifier4OneHotEncoder0_1VarianceThreshold6_2PCA_Randomized7_4ImputerMedian0_1RobustScaler9_2f_classifFWE10_1PCA_Randomized11_1GaussianNBClassifier12_7GradientBoostingClassifierMeta5_13_8": {
+    "id": "imputer0RobustScaler1VarianceThreshold2PCA_Randomized3DecisionTreeClassifier4OneHotEncoder0_1VarianceThreshold6_2PCA_Randomized7_4ImputerMedian0_1RobustScaler9_2f_classifFWE10_1PCA_Randomized11_1GaussianNBClassifier12_7GradientBoostingClassifierMeta5_13_8",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "imputer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values by mean.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "DecisionTreeClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "A decision tree classifier.",
+          "type": "Classifier"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "OneHotEncoder",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Encode categorical integer features as a one-hot numeric array. The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka \u2018one-of-K\u2019 or \u2018dummy\u2019) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array. By default, the encoder derives the categories based on the unique values in each feature. Alternatively, you can also specify the categories manually. The OneHotEncoder previously assumed that the input features take on values in the range [0, max(values)). This behaviour is deprecated. This encoding is needed for feeding categorical data to many scikit-learn estimators, notably linear models and SVMs with the standard kernels.",
+          "type": "data preprocess"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6,
+          2
+        ],
+        "primitive": {
+          "name": "VarianceThreshold",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature selector that removes all low-variance features.",
+          "type": "feature selection"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          4
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "9": {
+        "index": 9,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "ImputerMedian",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values by median.",
+          "type": "data preprocess"
+        }
+      },
+      "10": {
+        "index": 10,
+        "inputs": [
+          9,
+          2
+        ],
+        "primitive": {
+          "name": "RobustScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale features using statistics that are robust to outliers. This Scaler removes the median and scales the data according to the quantile range (defaults to IQR: Interquartile Range). The IQR is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile). Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Median and interquartile range are then stored to be used on later data using the transform method. Standardization of a dataset is a common requirement for many machine learning estimators. Typically this is done by removing the mean and scaling to unit variance. However, outliers can often influence the sample mean / variance in a negative way. In such cases, the median and the interquartile range often give better results.",
+          "type": "feature preprocess"
+        }
+      },
+      "11": {
+        "index": 11,
+        "inputs": [
+          10,
+          1
+        ],
+        "primitive": {
+          "name": "f_classifFWE",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select the p-values corresponding to Family-wise error rate with ANOVA F-value between label/feature for classification tasks.",
+          "type": "feature selection"
+        }
+      },
+      "12": {
+        "index": 12,
+        "inputs": [
+          11,
+          1
+        ],
+        "primitive": {
+          "name": "PCA_Randomized",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Randomized SVD principal component analysis (PCA). Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. It uses the LAPACK implementation of the full SVD or a randomized truncated SVD by the method of Halko et al. 2009, depending on the shape of the input data and the number of components to extract.",
+          "type": "feature engineering"
+        }
+      },
+      "13": {
+        "index": 13,
+        "inputs": [
+          12,
+          7
+        ],
+        "primitive": {
+          "name": "GaussianNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Gaussian Naive Bayes (GaussianNB). Can perform online updates to model parameters via partial_fit method.",
+          "type": "Classifier"
+        }
+      },
+      "14": {
+        "index": 14,
+        "inputs": [
+          5,
+          13,
+          8
+        ],
+        "primitive": {
+          "name": "GradientBoostingClassifierMeta",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Gradient Boosting for classification. GB builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the binomial or multinomial deviance loss function. Binary classification is a special case where only a single regression tree is induced.",
+          "type": "ensemble"
+        }
+      }
+    }
   }
 }

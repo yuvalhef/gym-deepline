@@ -21494,5 +21494,21 @@
     "dataset": "weatherAUS",
     "pipeline_id": "ImputerMedian0RobustScaler1f_classifFPR2TruncatedSVD3BernoulliNBClassifier4OneHotEncoder0PowerTransformer6RFE_GradientBoosting7_2PCA_ARPACK8GaussianNBClassifier9_4imputerIndicator0MinMaxScaler11f_classifKbest12IncrementalPCA13_6ExtraTreesClassifier14_7MajorityVoting5_10_15",
     "score": 0.95
+  },
+  "test_eucalyptusClassificationaccuracytest_eucalyptusimputer0MinMaxScaler1UnivariateSelectChiKbest2FastICA3XGBClassifier4ImputerMedian0MaxAbsScaler6_2f_classifPercentile7KernelPCA8_1LinearSVC9NumericData0_1XGBClassifier11_9RandomForestMeta5_10_120.5945945945945946": {
+    "name": "test_eucalyptus",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_eucalyptus",
+    "pipeline_id": "imputer0MinMaxScaler1UnivariateSelectChiKbest2FastICA3XGBClassifier4ImputerMedian0MaxAbsScaler6_2f_classifPercentile7KernelPCA8_1LinearSVC9NumericData0_1XGBClassifier11_9RandomForestMeta5_10_12",
+    "score": 0.5945945945945946
+  },
+  "test_eucalyptusClassificationaccuracytest_eucalyptusimputer0RobustScaler1VarianceThreshold2PCA_Randomized3DecisionTreeClassifier4OneHotEncoder0_1VarianceThreshold6_2PCA_Randomized7_4ImputerMedian0_1RobustScaler9_2f_classifFWE10_1PCA_Randomized11_1GaussianNBClassifier12_7GradientBoostingClassifierMeta5_13_80.581081081081081": {
+    "name": "test_eucalyptus",
+    "task": "Classification",
+    "metric": "accuracy",
+    "dataset": "test_eucalyptus",
+    "pipeline_id": "imputer0RobustScaler1VarianceThreshold2PCA_Randomized3DecisionTreeClassifier4OneHotEncoder0_1VarianceThreshold6_2PCA_Randomized7_4ImputerMedian0_1RobustScaler9_2f_classifFWE10_1PCA_Randomized11_1GaussianNBClassifier12_7GradientBoostingClassifierMeta5_13_8",
+    "score": 0.581081081081081
   }
 }
