@@ -77144,5 +77144,335 @@
         }
       }
     }
+  },
+  "imputer0MaxAbsScaler1mutual_info_classifKbest2KernelPCA3BernoulliNBClassifier4": {
+    "id": "imputer0MaxAbsScaler1mutual_info_classifKbest2KernelPCA3BernoulliNBClassifier4",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "imputer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values by mean.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "MaxAbsScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Scale each feature by its maximum absolute value. his estimator scales and translates each feature individually such that the maximal absolute value of each feature in the training set will be 1.0. It does not shift/center the data, and thus does not destroy any sparsity. This scaler can also be applied to sparse CSR or CSC matrices.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "mutual_info_classifKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Mutual information for a discrete target.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "KernelPCA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Kernel Principal component analysis (KPCA). Non-linear dimensionality reduction through the use of kernels",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "ImputerOneHotEncoderPrim0MinMaxScaler1UnivariateSelectChiPercentile2BernoulliNBClassifier3OneHotEncoder0_1QuantileTransformer5mutual_info_classifKbest6FastICA7_2": {
+    "id": "ImputerOneHotEncoderPrim0MinMaxScaler1UnivariateSelectChiPercentile2BernoulliNBClassifier3OneHotEncoder0_1QuantileTransformer5mutual_info_classifKbest6FastICA7_2",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "ImputerOneHotEncoderPrim",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values and encode categorical one-hot.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "MinMaxScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transforms features by scaling each feature to a given range. This estimator scales and translates each feature individually such that it is in the given range on the training set, e.g. between zero and one.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "UnivariateSelectChiPercentile",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to a percentile of the highest scores with Chi-square",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "BernoulliNBClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Naive Bayes classifier for multivariate Bernoulli models. Like MultinomialNB, this classifier is suitable for discrete data. The difference is that while MultinomialNB works with occurrence counts, BernoulliNB is designed for binary/boolean features.",
+          "type": "Classifier"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          0,
+          1
+        ],
+        "primitive": {
+          "name": "OneHotEncoder",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Encode categorical integer features as a one-hot numeric array. The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka \u2018one-of-K\u2019 or \u2018dummy\u2019) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array. By default, the encoder derives the categories based on the unique values in each feature. Alternatively, you can also specify the categories manually. The OneHotEncoder previously assumed that the input features take on values in the range [0, max(values)). This behaviour is deprecated. This encoding is needed for feeding categorical data to many scikit-learn estimators, notably linear models and SVMs with the standard kernels.",
+          "type": "data preprocess"
+        }
+      },
+      "6": {
+        "index": 6,
+        "inputs": [
+          5
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "7": {
+        "index": 7,
+        "inputs": [
+          6
+        ],
+        "primitive": {
+          "name": "mutual_info_classifKbest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Select features according to the k highest scores with Mutual information for a discrete target.",
+          "type": "feature selection"
+        }
+      },
+      "8": {
+        "index": 8,
+        "inputs": [
+          7,
+          2
+        ],
+        "primitive": {
+          "name": "FastICA",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      }
+    }
+  },
+  "ImputerMedian0StandardScaler1RFE_RandomForest2RandomTreesEmbedding3LinearSVC4": {
+    "id": "ImputerMedian0StandardScaler1RFE_RandomForest2RandomTreesEmbedding3LinearSVC4",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "ImputerMedian",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values by median.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "StandardScaler",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Standardize features by removing the mean and scaling to unit variance",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "RFE_RandomForest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "RandomTreesEmbedding",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "FastICA: a fast algorithm for Independent Component Analysis.",
+          "type": "feature engineering"
+        }
+      },
+      "5": {
+        "index": 5,
+        "inputs": [
+          4
+        ],
+        "primitive": {
+          "name": "LinearSVC",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Linear Support Vector Classification. Similar to SVC with parameter kernel=\u2019linear\u2019, but implemented in terms of liblinear rather than libsvm, so it has more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples. This class supports both dense and sparse input and the multiclass support is handled according to a one-vs-the-rest scheme.",
+          "type": "Classifier"
+        }
+      }
+    }
+  },
+  "imputer0QuantileTransformer1RFE_RandomForest2ExtraTreesClassifier3": {
+    "id": "imputer0QuantileTransformer1RFE_RandomForest2ExtraTreesClassifier3",
+    "steps": {
+      "1": {
+        "index": 1,
+        "inputs": [
+          0
+        ],
+        "primitive": {
+          "name": "imputer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Imputation transformer for completing missing values by mean.",
+          "type": "data preprocess"
+        }
+      },
+      "2": {
+        "index": 2,
+        "inputs": [
+          1
+        ],
+        "primitive": {
+          "name": "QuantileTransformer",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Transform features using quantiles information. This method transforms the features to follow a uniform or a normal distribution. Therefore, for a given feature, this transformation tends to spread out the most frequent values. It also reduces the impact of (marginal) outliers: this is therefore a robust preprocessing scheme. The transformation is applied on each feature independently. The cumulative distribution function of a feature is used to project the original values. Features values of new/unseen data that fall below or above the fitted range will be mapped to the bounds of the output distribution. Note that this transform is non-linear. It may distort linear correlations between variables measured at the same scale but renders variables measured at different scales more directly comparable.",
+          "type": "feature preprocess"
+        }
+      },
+      "3": {
+        "index": 3,
+        "inputs": [
+          2
+        ],
+        "primitive": {
+          "name": "RFE_RandomForest",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "Feature ranking with recursive feature elimination with Random-Forest classifier. Given an external estimator that assigns weights to features (e.g., the coefficients of a linear model), the goal of recursive feature elimination (RFE) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through a coef_ attribute or through a feature_importances_ attribute. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.",
+          "type": "feature selection"
+        }
+      },
+      "4": {
+        "index": 4,
+        "inputs": [
+          3
+        ],
+        "primitive": {
+          "name": "ExtraTreesClassifier",
+          "hyperparams_run": {
+            "default": true
+          },
+          "description": "An extra-trees classifier. This class implements a meta estimator that fits a number of randomized decision trees (a.k.a. extra-trees) on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.",
+          "type": "Classifier"
+        }
+      }
+    }
   }
 }
