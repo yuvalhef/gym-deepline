@@ -1012,7 +1012,7 @@ class AutomlEnv(gym.Env):
 
     def set_env_params(self, primitives_list=None, lj_list=None, cv_reward=False, print_scores=False, level=3,
                        reset_regressor=True, split_rate=0.8, random_state=42, baselines_rewards=False,
-                       heirarc_step=True, embedd_size=None):
+                       heirarc_step=True, embedd_size=None, log_pipelines=False):
 
         self.heirarc_step = heirarc_step
         self.observation = Observation(level=level, mode=self.mode)
@@ -1022,6 +1022,7 @@ class AutomlEnv(gym.Env):
         self.observation.reset_observation(primitives_list, lj_list)
         self.observation.cv_reward = cv_reward
         self.observation.baselines_rewards = baselines_rewards
+        self.observation.log_pipelines = log_pipelines
         if baselines_rewards:
             self.observation.compute_baselines()
         self.observation.print_scores = print_scores
