@@ -23,4 +23,6 @@ import gym-deepline
 env = gym.make('deepline-v0')
 ```
 
-The environment itself is implemented in `python envs/atml_env.py`
+The environment itself is implemented in `envs/atml_env.py`.
+
+For a more detailed example, see `example.py`.
