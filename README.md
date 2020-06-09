@@ -5,7 +5,7 @@ This project is the implementation of DeepLine, a system for automatic machine l
 DeepLine is a deep reinforcement learning-based framework. It consists of a grid-world environment in which the pipeline generation process is modeled in a semi-constrained setting, and a DDQN agent.
 
 DeepLine also introduces a novel method for handling large discrete action spaces where most of the actions are invalid in most states. The Hierarchical Step filters only the set of vaild actions by quering the agent iteratively on small subsets of the actions space. 
-Extensive description of the framework is available in `Thesis_Yuval.pdf`.
+Extensive description of the framework is available in `deeplineThesis.pdf`.
 
 ## Installation
 After cloning the repository, do the following:
