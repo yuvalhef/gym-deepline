@@ -7,4 +7,4 @@ xgboost
 imbalanced-learn==0.4.3
 lightgbm==2.2.2
 arff==0.9
-numpy==1.16.2
+numpy==1.22.0
